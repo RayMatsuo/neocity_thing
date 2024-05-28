@@ -47,12 +47,11 @@ class Cell_manager {
       for (let i = 0; i < this.cell_count; i++) {
         const cell = this.cell_list[i];
         const dist = cell.position.dist(mpos);
-        console.log(dist);
-        if (dist < 800) {
+        if (dist < 300) {
           this.canvas.draw_line(mpos, cell.position);
         }
       }
-      this.canvas.ctx.lin
+      this.canvas.ctx.lin;
     });
   }
 
@@ -70,8 +69,6 @@ class Canvas_manager {
     this.root.width = 1920;
     this.root.height = 1080;
     this.ctx = this.root.getContext("2d");
-    console.log(this.root.width);
-    console.log(this.root.height);
     this.ctx.lineWidth = 30;
     this.mouse_pos = new Vector2();
     this.mouseover_cb = function () {};
@@ -84,6 +81,7 @@ class Canvas_manager {
 
   init_event() {
     this.root.addEventListener("mousemove", (e) => {
+      this.ctx.clearRect(0, 0, 1920, 1080)
       this.mouse_pos.x = e.clientX;
       this.mouse_pos.y = e.clientY;
       this.mouseover_cb();
@@ -91,7 +89,12 @@ class Canvas_manager {
   }
 
   draw_line(p1, p2) {
+    this.ctx.beginPath();
     this.ctx.moveTo(p1.x, p1.y);
-    this.ctx.lineTo(p1.x, p1.y);
+    this.ctx.lineWidth = 10;
+    this.ctx.lineTo(p2.x, p2.y);
+    this.ctx.strokeStyle = "#ff0000";
+    this.ctx.stroke();
+    this.ctx.lineWidth;
   }
 }
