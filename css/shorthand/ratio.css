@@ -1,0 +1,14 @@
+.ratio-1 {
+  aspect-ratio: 1;
+}
+.ratio-2 {
+  aspect-ratio: 2;
+}
+.ratio-golden {
+  aspect-ratio: 1.61803;
+}
+.ratio-display {
+  aspect-ratio: 1.7777777778;
+}
+
+/*# sourceMappingURL=ratio.css.map */

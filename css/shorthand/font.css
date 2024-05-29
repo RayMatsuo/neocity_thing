@@ -1,0 +1,88 @@
+.font-small {
+  font-size: 14px;
+}
+.font-m {
+  font-size: 18px;
+}
+.font-l, .font-heading {
+  font-size: 24px;
+}
+.font-title {
+  font-size: 30px;
+}
+.font-14 {
+  font-size: 14px;
+}
+.font-18 {
+  font-size: 18px;
+}
+.font-24 {
+  font-size: 24px;
+}
+.font-30 {
+  font-size: 30px;
+}
+.font-50 {
+  font-size: 50px;
+}
+.font-nowrap {
+  white-space: nowrap;
+}
+.font-break {
+  white-space: break-spaces;
+}
+.font-bold {
+  font-weight: bold;
+}
+.font-initial {
+  font-weight: initial;
+}
+.font-sans-serif {
+  font-family: "Noto Sans JP", sans-serif;
+}
+.font-serif {
+  font-family: "Noto Serif JP", serif;
+}
+
+.text-contain-4 {
+  word-wrap: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+.text-contain-2 {
+  word-wrap: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.text-contain-1 {
+  word-wrap: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.text-middle {
+  vertical-align: middle;
+}
+.text-center {
+  text-align: center;
+}
+
+@media screen and (max-width: var(--mobile-width)) {
+  .m-font-2 {
+    font-size: 2vw;
+  }
+  .m-font-3 {
+    font-size: 3vw;
+  }
+  .m-font-4 {
+    font-size: 4vw;
+  }
+}
+
+/*# sourceMappingURL=font.css.map */

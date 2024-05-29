@@ -1,0 +1,74 @@
+.min-wid-fit {
+  min-width: fit-content;
+}
+.min-wid-100per {
+  min-width: 100%;
+}
+.min-wid-auto {
+  min-width: auto;
+}
+.min-wid-25 {
+  min-width: 25px;
+}
+.min-wid-50 {
+  min-width: 50px;
+}
+.min-wid-100 {
+  min-width: 100px;
+}
+.min-wid-125 {
+  min-width: 125px;
+}
+.min-wid-150 {
+  min-width: 150px;
+}
+.min-wid-200 {
+  min-width: 200px;
+}
+.min-wid-300 {
+  min-width: 300px;
+}
+.min-wid-600 {
+  min-width: 600px;
+}
+.min-wid-400 {
+  min-width: 400px;
+}
+.min-wid-500 {
+  min-width: 500px;
+}
+.min-wid-900 {
+  min-width: 900px;
+}
+.min-wid-10p {
+  min-width: 10%;
+}
+.min-wid-20p {
+  min-width: 20%;
+}
+.min-wid-30p {
+  min-width: 30%;
+}
+.min-wid-40p {
+  min-width: 40%;
+}
+.min-wid-50p {
+  min-width: 50%;
+}
+.min-wid-60p {
+  min-width: 60%;
+}
+.min-wid-70p {
+  min-width: 70%;
+}
+.min-wid-80p {
+  min-width: 80%;
+}
+.min-wid-90p {
+  min-width: 90%;
+}
+.min-wid-100p {
+  min-width: 100%;
+}
+
+/*# sourceMappingURL=min-width.css.map */

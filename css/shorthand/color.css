@@ -1,0 +1,49 @@
+.op-half {
+  opacity: 0.5;
+}
+.op-quarter {
+  opacity: 0.25;
+}
+.op-01 {
+  opacity: 0.1;
+}
+.op-1 {
+  opacity: 1;
+}
+
+.col-white {
+  color: white;
+}
+.col-black {
+  color: black;
+}
+.col-grey {
+  color: var(--color-grey);
+}
+.col-lightgrey {
+  color: var(--color-lightgrey);
+}
+.col-red {
+  color: red;
+}
+.col-active {
+  border-color: var(--color-active);
+  color: var(--color-active);
+}
+.col-inactive {
+  color: var(--color-inactive);
+}
+.col-overlay {
+  color: var(--color-overlay);
+}
+.col-reminder {
+  color: var(--color-reminder);
+}
+.col-warning {
+  color: var(--color-warning);
+}
+.col-disabled {
+  color: var(--color-disabled);
+}
+
+/*# sourceMappingURL=color.css.map */

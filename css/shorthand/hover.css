@@ -1,0 +1,11 @@
+.hov-lightgrey:hover {
+  background-color: var(--color-lightgrey);
+}
+.hov-outline:hover {
+  outline: 1px solid;
+}
+.hov-active:hover {
+  background-color: var(--color-active);
+}
+
+/*# sourceMappingURL=hover.css.map */

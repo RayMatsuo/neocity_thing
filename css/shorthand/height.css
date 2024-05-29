@@ -1,0 +1,244 @@
+.max-hei-fit {
+  max-height: fit-content;
+}
+.max-hei-100per {
+  max-height: 100%;
+}
+.max-hei-75 {
+  max-height: 75px;
+}
+.max-hei-100 {
+  max-height: 100px;
+}
+.max-hei-auto {
+  max-height: auto;
+}
+.max-hei-25 {
+  max-height: 25px;
+}
+.max-hei-50 {
+  max-height: 50px;
+}
+.max-hei-150 {
+  max-height: 150px;
+}
+.max-hei-200 {
+  max-height: 200px;
+}
+.max-hei-300 {
+  max-height: 300px;
+}
+.max-hei-600 {
+  max-height: 600px;
+}
+.max-hei-400 {
+  max-height: 400px;
+}
+.max-hei-500 {
+  max-height: 500px;
+}
+.max-hei-900 {
+  max-height: 900px;
+}
+.max-hei-80per {
+  max-height: 80%;
+}
+.max-hei-10p {
+  max-height: 10%;
+}
+.max-hei-20p {
+  max-height: 20%;
+}
+.max-hei-30p {
+  max-height: 30%;
+}
+.max-hei-40p {
+  max-height: 40%;
+}
+.max-hei-50p {
+  max-height: 50%;
+}
+.max-hei-60p {
+  max-height: 60%;
+}
+.max-hei-70p {
+  max-height: 70%;
+}
+.max-hei-80p {
+  max-height: 80%;
+}
+.max-hei-90p {
+  max-height: 90%;
+}
+.max-hei-100p {
+  max-height: 100%;
+}
+
+.min-hei-fit {
+  min-height: fit-content;
+}
+.min-hei-100per {
+  min-height: 100%;
+}
+.min-hei-75 {
+  min-height: 75px;
+}
+.min-hei-100 {
+  min-height: 100px;
+}
+.min-hei-auto {
+  min-height: auto;
+}
+.min-hei-25 {
+  min-height: 25px;
+}
+.min-hei-50 {
+  min-height: 50px;
+}
+.min-hei-150 {
+  min-height: 150px;
+}
+.min-hei-200 {
+  min-height: 200px;
+}
+.min-hei-300 {
+  min-height: 300px;
+}
+.min-hei-350 {
+  min-height: 350px;
+}
+.min-hei-600 {
+  min-height: 600px;
+}
+.min-hei-400 {
+  min-height: 400px;
+}
+.min-hei-500 {
+  min-height: 500px;
+}
+.min-hei-900 {
+  min-height: 900px;
+}
+.min-hei-10p {
+  min-height: 10%;
+}
+.min-hei-20p {
+  min-height: 20%;
+}
+.min-hei-30p {
+  min-height: 30%;
+}
+.min-hei-40p {
+  min-height: 40%;
+}
+.min-hei-50p {
+  min-height: 50%;
+}
+.min-hei-60p {
+  min-height: 60%;
+}
+.min-hei-70p {
+  min-height: 70%;
+}
+.min-hei-80p {
+  min-height: 80%;
+}
+.min-hei-90p {
+  min-height: 90%;
+}
+.min-hei-100p {
+  min-height: 100%;
+}
+
+.hei-fit {
+  height: fit-content;
+}
+.hei-100per {
+  height: 100%;
+}
+.hei-75 {
+  height: 75px;
+}
+.hei-100 {
+  height: 100px;
+}
+.hei-125 {
+  height: 125px;
+}
+.hei-auto {
+  height: auto;
+}
+.hei-25 {
+  height: 25px;
+}
+.hei-50 {
+  height: 50px;
+}
+.hei-150 {
+  height: 150px;
+}
+.hei-200 {
+  height: 200px;
+}
+.hei-250 {
+  height: 250px;
+}
+.hei-300 {
+  height: 300px;
+}
+.hei-600 {
+  height: 600px;
+}
+.hei-400 {
+  height: 400px;
+}
+.hei-500 {
+  height: 500px;
+}
+.hei-900 {
+  height: 900px;
+}
+.hei-header {
+  height: var(--header-height);
+}
+.hei-main {
+  height: calc(100% - var(--header-height) - var(--section-margin));
+}
+.hei-10p {
+  height: 10%;
+}
+.hei-20p {
+  height: 20%;
+}
+.hei-30p {
+  height: 30%;
+}
+.hei-40p {
+  height: 40%;
+}
+.hei-50p {
+  height: 50%;
+}
+.hei-60p {
+  height: 60%;
+}
+.hei-70p {
+  height: 70%;
+}
+.hei-80p {
+  height: 80%;
+}
+.hei-90p {
+  height: 90%;
+}
+.hei-100p {
+  height: 100%;
+}
+
+@media screen and (max-width: var(--mobile-width)) {
+  .m-height-fit {
+    height: fit-content;
+  }
+}
+
+/*# sourceMappingURL=height.css.map */

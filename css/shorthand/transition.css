@@ -1,0 +1,13 @@
+.trans-25-ease {
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
+  transition-property: all;
+}
+
+.trans-05-ease {
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  transition-property: all;
+}
+
+/*# sourceMappingURL=transition.css.map */

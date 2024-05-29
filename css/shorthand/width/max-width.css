@@ -1,0 +1,77 @@
+.max-wid-fit {
+  max-width: fit-content;
+}
+.max-wid-100per {
+  max-width: 100%;
+}
+.max-wid-auto {
+  max-width: auto;
+}
+.max-wid-25 {
+  max-width: 25px;
+}
+.max-wid-50 {
+  max-width: 50px;
+}
+.max-wid-100 {
+  max-width: 100px;
+}
+.max-wid-125 {
+  max-width: 125px;
+}
+.max-wid-150 {
+  max-width: 150px;
+}
+.max-wid-200 {
+  max-width: 200px;
+}
+.max-wid-300 {
+  max-width: 300px;
+}
+.max-wid-600 {
+  max-width: 600px;
+}
+.max-wid-400 {
+  max-width: 400px;
+}
+.max-wid-500 {
+  max-width: 500px;
+}
+.max-wid-800 {
+  max-width: 800px;
+}
+.max-wid-900 {
+  max-width: 900px;
+}
+.max-wid-10p {
+  max-width: 10%;
+}
+.max-wid-20p {
+  max-width: 20%;
+}
+.max-wid-30p {
+  max-width: 30%;
+}
+.max-wid-40p {
+  max-width: 40%;
+}
+.max-wid-50p {
+  max-width: 50%;
+}
+.max-wid-60p {
+  max-width: 60%;
+}
+.max-wid-70p {
+  max-width: 70%;
+}
+.max-wid-80p {
+  max-width: 80%;
+}
+.max-wid-90p {
+  max-width: 90%;
+}
+.max-wid-100p {
+  max-width: 100%;
+}
+
+/*# sourceMappingURL=max-width.css.map */

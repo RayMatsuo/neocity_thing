@@ -1,0 +1,42 @@
+.b- {
+  &none {
+    border: none;
+  }
+  &r-1 {
+    border-right: 1px solid black;
+  }
+  &l-1 {
+    border-left: 1px solid black;
+  }
+  &b-1 {
+    border-bottom: 1px solid black;
+  }
+  &t-1 {
+    border-top: 1px solid black;
+  }
+  &h-1 {
+    border-left: 1px;
+    border-right: 1px;
+  }
+  &v-1 {
+    border-top: 1px;
+    border-bottom: 1px;
+  }
+  &1 {
+    border: 1px solid black;
+  }
+}
+.b-radius- {
+  &0 {
+    border-radius: 0;
+  }
+  &5 {
+    border-radius: 5px;
+  }
+  &15 {
+    border-radius: 15px;
+  }
+  &100 {
+    border-radius: 100px;
+  }
+}

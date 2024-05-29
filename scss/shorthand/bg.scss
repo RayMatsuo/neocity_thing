@@ -1,0 +1,41 @@
+.bg- {
+  &row-color {
+    background-color: var(--table-row-color);
+  }
+  &white {
+    background-color: white;
+  }
+  &lightgrey {
+    background-color: var(--colro-lightgrey);
+  }
+  &active {
+    background-color: var(--color-active);
+  }
+  &active-f {
+    background-color: var(--color-active) !important;
+  }
+  &break {
+    background-color: var(--color-break);
+  }
+  &break-f {
+    background-color: var(--color-break) !important;
+  }
+  &side {
+    background-color: var(--side-window-bg);
+  }
+  &overlay {
+    background-color: var(--color-overlay);
+  }
+  &disabled {
+    background-color: var(--color-disabled);
+  }
+  &warning {
+    background-color: var(--color-warning);
+  }
+  &default {
+    background-color: var(--color-bg);
+  }
+  &reminder {
+    background-color: var(--color-reminder);
+  }
+}

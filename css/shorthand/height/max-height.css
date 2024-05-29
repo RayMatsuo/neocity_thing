@@ -1,0 +1,77 @@
+.max-hei-fit {
+  max-height: fit-content;
+}
+.max-hei-100per {
+  max-height: 100%;
+}
+.max-hei-75 {
+  max-height: 75px;
+}
+.max-hei-100 {
+  max-height: 100px;
+}
+.max-hei-auto {
+  max-height: auto;
+}
+.max-hei-25 {
+  max-height: 25px;
+}
+.max-hei-50 {
+  max-height: 50px;
+}
+.max-hei-150 {
+  max-height: 150px;
+}
+.max-hei-200 {
+  max-height: 200px;
+}
+.max-hei-300 {
+  max-height: 300px;
+}
+.max-hei-600 {
+  max-height: 600px;
+}
+.max-hei-400 {
+  max-height: 400px;
+}
+.max-hei-500 {
+  max-height: 500px;
+}
+.max-hei-900 {
+  max-height: 900px;
+}
+.max-hei-80per {
+  max-height: 80%;
+}
+.max-hei-10p {
+  max-height: 10%;
+}
+.max-hei-20p {
+  max-height: 20%;
+}
+.max-hei-30p {
+  max-height: 30%;
+}
+.max-hei-40p {
+  max-height: 40%;
+}
+.max-hei-50p {
+  max-height: 50%;
+}
+.max-hei-60p {
+  max-height: 60%;
+}
+.max-hei-70p {
+  max-height: 70%;
+}
+.max-hei-80p {
+  max-height: 80%;
+}
+.max-hei-90p {
+  max-height: 90%;
+}
+.max-hei-100p {
+  max-height: 100%;
+}
+
+/*# sourceMappingURL=max-height.css.map */

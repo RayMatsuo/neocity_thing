@@ -1,0 +1,92 @@
+@import "width/max-width";
+@import "width/min-width";
+.wid- {
+  &fit {
+    width: fit-content;
+  }
+  &100per {
+    width: 100%;
+  }
+  &auto {
+    width: auto;
+  }
+  &25 {
+    width: 25px;
+  }
+  &50 {
+    width: 50px;
+  }
+  &75 {
+    width: 75px;
+  }
+  &100 {
+    width: 100px;
+  }
+  &125 {
+    width: 125px;
+  }
+  &125 {
+    width: 125px;
+  }
+  &150 {
+    width: 150px;
+  }
+  &200 {
+    width: 200px;
+  }
+  &300 {
+    width: 300px;
+  }
+  &350 {
+    width: 350px;
+  }
+  &600 {
+    width: 600px;
+  }
+  &700 {
+    width: 700px;
+  }
+  &400 {
+    width: 400px;
+  }
+  &500 {
+    width: 500px;
+  }
+  &900 {
+    width: 900px;
+  }
+  &side {
+    width: var(--side-window-width);
+  }
+  &10p {
+    width: 10%;
+  }
+  &20p {
+    width: 20%;
+  }
+  &30p {
+    width: 30%;
+  }
+  &40p {
+    width: 40%;
+  }
+  &50p {
+    width: 50%;
+  }
+  &60p {
+    width: 60%;
+  }
+  &70p {
+    width: 70%;
+  }
+  &80p {
+    width: 80%;
+  }
+  &90p {
+    width: 90%;
+  }
+  &100p {
+    width: 100%;
+  }
+}
+/*# sourceMappingURL=width.css.map */

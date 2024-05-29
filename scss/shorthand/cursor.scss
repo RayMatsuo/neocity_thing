@@ -1,0 +1,14 @@
+.c- {
+  &pointer {
+    cursor: pointer;
+  }
+  &default {
+    cursor: default;
+  }
+  &grab {
+    cursor: grab;
+  }
+  &grabbing {
+    cursor: grabbing;
+  }
+}

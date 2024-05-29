@@ -1,0 +1,93 @@
+@import "height/max-height";
+@import "height/min-height";
+.hei- {
+  &fit {
+    height: fit-content;
+  }
+  &100per {
+    height: 100%;
+  }
+  &75 {
+    height: 75px;
+  }
+  &100 {
+    height: 100px;
+  }
+  &125 {
+    height: 125px;
+  }
+  &auto {
+    height: auto;
+  }
+  &25 {
+    height: 25px;
+  }
+  &50 {
+    height: 50px;
+  }
+  &150 {
+    height: 150px;
+  }
+  &200 {
+    height: 200px;
+  }
+  &250 {
+    height: 250px;
+  }
+  &300 {
+    height: 300px;
+  }
+  &600 {
+    height: 600px;
+  }
+  &400 {
+    height: 400px;
+  }
+  &500 {
+    height: 500px;
+  }
+  &900 {
+    height: 900px;
+  }
+  &header {
+    height: var(--header-height);
+  }
+  &main {
+    height: calc(100% - var(--header-height) - var(--section-margin));
+  }
+  &10p {
+    height: 10%;
+  }
+  &20p {
+    height: 20%;
+  }
+  &30p {
+    height: 30%;
+  }
+  &40p {
+    height: 40%;
+  }
+  &50p {
+    height: 50%;
+  }
+  &60p {
+    height: 60%;
+  }
+  &70p {
+    height: 70%;
+  }
+  &80p {
+    height: 80%;
+  }
+  &90p {
+    height: 90%;
+  }
+  &100p {
+    height: 100%;
+  }
+}
+@media screen and (max-width: var(--mobile-width)) {
+  .m-height-fit {
+    height: fit-content;
+  }
+}

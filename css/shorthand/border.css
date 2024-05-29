@@ -1,0 +1,41 @@
+.b-none {
+  border: none;
+}
+.b-r-1 {
+  border-right: 1px solid black;
+}
+.b-l-1 {
+  border-left: 1px solid black;
+}
+.b-b-1 {
+  border-bottom: 1px solid black;
+}
+.b-t-1 {
+  border-top: 1px solid black;
+}
+.b-h-1 {
+  border-left: 1px;
+  border-right: 1px;
+}
+.b-v-1 {
+  border-top: 1px;
+  border-bottom: 1px;
+}
+.b-1 {
+  border: 1px solid black;
+}
+
+.b-radius-0 {
+  border-radius: 0;
+}
+.b-radius-5 {
+  border-radius: 5px;
+}
+.b-radius-15 {
+  border-radius: 15px;
+}
+.b-radius-100 {
+  border-radius: 100px;
+}
+
+/*# sourceMappingURL=border.css.map */

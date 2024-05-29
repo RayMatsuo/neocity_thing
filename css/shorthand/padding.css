@@ -1,0 +1,104 @@
+.p-5 {
+  padding: 5px !important;
+}
+.p-10 {
+  padding: 10px !important;
+}
+.p-s {
+  padding: 10px;
+}
+.p-m {
+  padding: 15px;
+}
+.p-l {
+  padding: 25px;
+}
+.p-xl {
+  padding: 40px;
+}
+
+.pv-5 {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.pv-10 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.pv-s {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.pv-m {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.pv-l {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+.pv-xl {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.ph-5 {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.ph-10 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.ph-s {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.ph-m {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.ph-l {
+  padding-right: 25px;
+  padding-left: 25px;
+}
+.ph-xl {
+  padding-right: 40px;
+  padding-left: 40px;
+}
+
+.pl-5 {
+  padding-left: 5px;
+}
+.pl-10 {
+  padding-left: 10px;
+}
+
+.pr-5 {
+  padding-right: 5px;
+}
+.pr-10 {
+  padding-right: 10px;
+}
+
+.pt-5 {
+  padding-top: 5px;
+}
+.pt-10 {
+  padding-top: 10px;
+}
+
+.pb-5 {
+  padding-bottom: 5px;
+}
+.pb-10 {
+  padding-bottom: 10px;
+}
+
+@media screen and (max-width: var(--mobile-width)) {
+  .m-p-01 {
+    padding: 0.1vw;
+  }
+}
+
+/*# sourceMappingURL=padding.css.map */

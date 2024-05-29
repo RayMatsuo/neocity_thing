@@ -1,0 +1,11 @@
+.ol- {
+  &none {
+    outline: 0;
+  }
+  &1 {
+    outline: 1px solid;
+  }
+  &lightgrey {
+    outline-color: rgba(0, 0, 0, 0.15);
+  }
+}

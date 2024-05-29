@@ -1,0 +1,50 @@
+.op- {
+  &half {
+    opacity: 0.5;
+  }
+  &quarter {
+    opacity: 0.25;
+  }
+  &01 {
+    opacity: 0.1;
+  }
+  &1 {
+    opacity: 1;
+  }
+}
+.col- {
+  &white {
+    color: white;
+  }
+  &black {
+    color: black;
+  }
+  &grey {
+    color: var(--color-grey);
+  }
+  &lightgrey {
+    color: var(--color-lightgrey);
+  }
+  &red {
+    color: red;
+  }
+  &active {
+    border-color: var(--color-active);
+    color: var(--color-active);
+  }
+  &inactive {
+    color: var(--color-inactive);
+  }
+  &overlay {
+    color: var(--color-overlay);
+  }
+  &reminder {
+    color: var(--color-reminder);
+  }
+  &warning {
+    color: var(--color-warning);
+  }
+  &disabled {
+    color: var(--color-disabled);
+  }
+}
