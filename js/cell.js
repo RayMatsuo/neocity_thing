@@ -1,13 +1,13 @@
 class Vector2 {
   constructor(x = 0, y = 0) {
-    this.x = Math.random() * 600;
-    this.y = Math.random() * 600;
+    this.x = x;
+    this.y = y;
   }
   static sub(p1, p2) {
     return new Vector2(p2.x - p1.x, p2.y - p1.y);
   }
   len() {
-    return Math.sqrt(this.x * this.x + this.y * this.y);
+    return Math.abs(Math.sqrt(this.x * this.x + this.y * this.y));
   }
 
   dist(p1) {
@@ -42,22 +42,47 @@ class Cell_manager {
     this.init_cells();
     this.canvas = new Canvas_manager();
 
+    let grid = [];
     this.canvas.set_mouseover_cb(() => {
       const mpos = this.canvas.mouse_pos;
       for (let i = 0; i < this.cell_count; i++) {
         const cell = this.cell_list[i];
-        const dist = cell.position.dist(mpos);
-        if (dist < 300) {
-          this.canvas.draw_line(mpos, cell.position);
+
+        if (grid[cell.grid.x + ":" + cell.grid.y] == null) {
+          grid[cell.grid.x + ":" + cell.grid.y] = [];
         }
+        grid[cell.grid.x + ":" + cell.grid.y].push(cell);
+
+        // const dist = cell.position.dist(mpos);
+        // if (dist < 300) {
+        //   this.canvas.draw_line(cell.position, mpos);
+        // }
       }
-      this.canvas.ctx.lin;
+
+      const keys = Object.keys(grid);
+      keys.forEach((x) => {
+        /**@type{Array.<Cell>}  */
+        const arr = grid[x];
+
+        if (arr.length > 1) {
+          arr.forEach(c=>{
+            arr.forEach(b=>{
+              if(c.position.dist(b.position)<200)
+            {
+                this.canvas.draw_line(c.position, b.position) }
+            })
+          })
+        }
+      });
     });
   }
 
   init_cells() {
     for (let i = 0; i < this.cell_count; i++) {
-      this.cell_list.push(new Cell(this, i));
+      const cell = new Cell(this, i);
+      cell.position.x = Math.random() * 600;
+      cell.position.y = Math.random() * 600;
+      this.cell_list.push(cell);
     }
   }
 }
@@ -81,7 +106,7 @@ class Canvas_manager {
 
   init_event() {
     this.root.addEventListener("mousemove", (e) => {
-      this.ctx.clearRect(0, 0, 1920, 1080)
+      this.ctx.clearRect(0, 0, 1920, 1080);
       this.mouse_pos.x = e.clientX;
       this.mouse_pos.y = e.clientY;
       this.mouseover_cb();
@@ -96,5 +121,9 @@ class Canvas_manager {
     this.ctx.strokeStyle = "#ff0000";
     this.ctx.stroke();
     this.ctx.lineWidth;
+    
+    this.ctx.strokeStyle = "blue";
+    this.ctx.fillRect(p1.x, p1.y, 5,5)
+    this.ctx.fillRect(p2.x, p2.y, 5,5)
   }
 }
