@@ -1,4 +1,4 @@
 window.addEventListener('load', ()=>{
   
-var mng=new Cell_manager(20)
+var mng=new Cell_manager(50)
 })

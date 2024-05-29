@@ -1,3 +1,7 @@
+body {
+  background-color: black;
+}
+
 .canvas__wrapper {
   position: fixed;
   width: 100%;
