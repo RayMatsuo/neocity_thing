@@ -115,11 +115,12 @@ class Cell_manager {
               comp[c.index+":"+b.index]=1
               const distance = c.position.dist(b.position);
               if (distance < 200) {
+                const op=Math.floor((1-distance/200)*255).toString(16)
                 this.canvas.draw_line(
                   c.position,
                   b.position,
-                  "#ffffff60",
-                  Math.floor(distance / 100),
+                  "#ffffff"+op,
+                  Math.floor(distance / 50),
                 );
               }
             }
