@@ -25,7 +25,7 @@ class Cell {
     this.position = new Vector2();
     this.momentum = new Vector2();
     this.decay = 0.8;
-    this.theta=Math.random()*360
+    this.theta = Math.random() * 360;
     this.index = index;
     this.grid = new Vector2();
   }
@@ -34,11 +34,11 @@ class Cell {
     this.grid.y = Math.floor(this.position.y / grid_resolution);
   }
   update() {
-    const rad=Math.PI/180
-    this.momentum.x += Math.sin(this.theta*rad);
-    this.momentum.y += Math.cos(this.theta*rad);
-    
-    this.theta+=Math.random()*5-2.5
+    const rad = Math.PI / 180;
+    this.momentum.x += Math.sin(this.theta * rad);
+    this.momentum.y += Math.cos(this.theta * rad);
+
+    this.theta += Math.random() * 30 - 15;
 
     this.position.x = (this.position.x + this.momentum.x) % 1920;
     this.position.y = (this.position.y + this.momentum.y) % 1080;
@@ -83,7 +83,7 @@ class Cell_manager {
         grid[cell.grid.x + ":" + cell.grid.y] = [];
       }
       grid[cell.grid.x + ":" + cell.grid.y].push(cell);
-      this.canvas.draw_pos(cell.position);
+      this.canvas.draw_pos(cell.position,cell.momentum);
     }
     const keys = Object.keys(grid);
     keys.forEach((x) => {
@@ -157,10 +157,19 @@ class Canvas_manager {
     this.ctx.fillRect(p1.x, p1.y, 5, 5);
     this.ctx.fillRect(p2.x, p2.y, 5, 5); */
   }
-  draw_pos(p1) {
+  draw_pos(p1,p2) {
     this.ctx.strokeStyle = "white";
     this.ctx.fillStyle = "white";
     const size = 5;
     this.ctx.fillRect(p1.x - size / 2, p1.y - size / 2, size, size);
+
+
+    this.ctx.lineWidth = 1;
+    this.ctx.strokeStyle = "red";
+    this.ctx.beginPath();
+    this.ctx.moveTo(p1.x,p1.y);
+    this.ctx.lineTo(p1.x+p2.x*20, p1.y+p2.y*20);
+    this.ctx.stroke();
+    
   }
 }
