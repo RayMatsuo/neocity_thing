@@ -24,6 +24,8 @@ class Vector2 {
   }
 }
 
+var resolution=new Vector2(window.visualViewport.width,window.visualViewport.height);
+
 var grid_resolution = 200;
 class Cell {
   constructor(parent, index) {
@@ -51,8 +53,8 @@ class Cell {
 
     this.theta += Math.random() * 10 - 5;
 
-    this.position.x = (this.position.x + this.momentum.x) % 1920;
-    this.position.y = (this.position.y + this.momentum.y) % 1080;
+    this.position.x = (this.position.x + this.momentum.x) % resolution.x;
+    this.position.y = (this.position.y + this.momentum.y) % resolution.y;
 
     this.momentum.x *= this.decay;
     this.momentum.y *= this.decay;
@@ -67,7 +69,7 @@ class Cell_manager {
     this.cell_list = [];
     this.init_cells();
     this.canvas = new Canvas_manager();
-    this.line_range=200
+    this.line_range = 200;
 
     this.show_grid = false;
 
@@ -79,7 +81,7 @@ class Cell_manager {
 
   init_loop() {
     window.setTimeout(() => {
-      this.canvas.ctx.clearRect(0, 0, 1920, 1080);
+      this.canvas.ctx.clearRect(0, 0, resolution.x, resolution.y);
       if (this.show_grid) {
         this.canvas.draw_grid();
       }
@@ -121,12 +123,14 @@ class Cell_manager {
               comp[c.index + ":" + b.index] = 1;
               const distance = c.position.dist(b.position);
               if (distance < this.line_range) {
-                const op = Math.floor((1 - distance / this.line_range) * 255).toString(16);
+                const op = Math.floor(
+                  (1 - distance / this.line_range) * 255,
+                ).toString(16);
                 this.canvas.draw_line(
                   c.position,
                   b.position,
                   "#ffffff" + op,
-                  Math.floor(distance / (this.line_range/4)),
+                  Math.floor(distance / (this.line_range / 4)),
                 );
               }
             }
@@ -139,8 +143,8 @@ class Cell_manager {
   init_cells() {
     for (let i = 0; i < this.cell_count; i++) {
       const cell = new Cell(this, i);
-      cell.position.x = Math.random() * 1920;
-      cell.position.y = Math.random() * 1080;
+      cell.position.x = Math.random() * resolution.x;
+      cell.position.y = Math.random() * resolution.y;
       this.cell_list.push(cell);
     }
   }
@@ -150,8 +154,8 @@ class Canvas_manager {
   constructor() {
     /**@type{HTMLCanvasElement}  */
     this.root = document.getElementsByClassName("js-canvas")[0];
-    this.root.width = 1920;
-    this.root.height = 1080;
+    this.root.width = resolution.x;
+    this.root.height = resolution.y;
     this.ctx = this.root.getContext("2d");
     this.ctx.lineWidth = 30;
     this.mouse_pos = new Vector2();
@@ -195,8 +199,8 @@ class Canvas_manager {
     this.ctx.strokeStyle = "#0000ff";
     const xsize = grid_resolution;
     const ysize = grid_resolution;
-    for (let x = 0; x < 1920 / grid_resolution; x++) {
-      for (let y = 0; y < 1080 / grid_resolution; y++) {
+    for (let x = 0; x < resolution.x / grid_resolution; x++) {
+      for (let y = 0; y <resolution.y  / grid_resolution; y++) {
         /* this.ctx.moveTo(xsize*x, ysize*y)
         this.ctx.lineTo(xsize*(x+1), ysize*y)
         this.ctx.lineTo(xsize*(x+1), ysize*(y+1))

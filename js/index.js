@@ -23,4 +23,13 @@ window.addEventListener("load", () => {
   };
   grid_size.value=grid_resolution
   line_range.value=mng.line_range
+
+
+  window.onresize=()=>
+  {
+      resolution.x= window.visualViewport.width
+    resolution.y= window.visualViewport.height
+  mng.canvas.root.width=resolution.x
+  mng.canvas.root.height=resolution.y
+    }
 });
