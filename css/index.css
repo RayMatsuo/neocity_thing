@@ -2,6 +2,11 @@ body {
   background-color: black;
 }
 
+.canvas {
+  z-index: -1;
+  position: relative;
+  pointer-events: none;
+}
 .canvas__wrapper {
   position: fixed;
   width: 100%;

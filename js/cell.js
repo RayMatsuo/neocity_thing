@@ -24,7 +24,7 @@ class Vector2 {
   }
 }
 
-const grid_resolution = 200;
+var grid_resolution = 200;
 class Cell {
   constructor(parent, index) {
     this.mng = parent;
@@ -67,6 +67,9 @@ class Cell_manager {
     this.cell_list = [];
     this.init_cells();
     this.canvas = new Canvas_manager();
+    this.line_range=200
+
+    this.show_grid = false;
 
     this.init_loop();
     /* this.canvas.set_mouseover_cb(() => {
@@ -77,11 +80,12 @@ class Cell_manager {
   init_loop() {
     window.setTimeout(() => {
       this.canvas.ctx.clearRect(0, 0, 1920, 1080);
-    this.canvas.draw_grid()
+      if (this.show_grid) {
+        this.canvas.draw_grid();
+      }
       this.frame_callback();
 
       this.init_loop();
-
     }, 100 / 60);
   }
 
@@ -116,13 +120,13 @@ class Cell_manager {
             if (c.index != b.index && comp[c.index + ":" + b.index] == null) {
               comp[c.index + ":" + b.index] = 1;
               const distance = c.position.dist(b.position);
-              if (distance < 200) {
-                const op = Math.floor((1 - distance / 200) * 255).toString(16);
+              if (distance < this.line_range) {
+                const op = Math.floor((1 - distance / this.line_range) * 255).toString(16);
                 this.canvas.draw_line(
                   c.position,
                   b.position,
                   "#ffffff" + op,
-                  Math.floor(distance / 50),
+                  Math.floor(distance / (this.line_range/4)),
                 );
               }
             }
@@ -187,14 +191,12 @@ class Canvas_manager {
     this.ctx.fillRect(p1.x - size / 2, p1.y - size / 2, size, size);
   }
   draw_grid() {
-
     this.ctx.lineWidth = 10;
     this.ctx.strokeStyle = "#0000ff";
-    const xsize=grid_resolution
-    const ysize=grid_resolution
+    const xsize = grid_resolution;
+    const ysize = grid_resolution;
     for (let x = 0; x < 1920 / grid_resolution; x++) {
       for (let y = 0; y < 1080 / grid_resolution; y++) {
-        
         /* this.ctx.moveTo(xsize*x, ysize*y)
         this.ctx.lineTo(xsize*(x+1), ysize*y)
         this.ctx.lineTo(xsize*(x+1), ysize*(y+1))
@@ -202,12 +204,14 @@ class Canvas_manager {
 
         // this.ctx.fillStyle="#a0a0ff10"
         // this.ctx.fillRect(xsize*x,xsize*y,xsize,ysize)
-        // 
-        this.ctx.fillStyle="#ff000020"
-        this.ctx.fillRect(xsize*x+10,xsize*y+10,xsize-10,ysize-10)
-        
-
-        
+        //
+        this.ctx.fillStyle = "#ff000020";
+        this.ctx.fillRect(
+          xsize * x + 10,
+          xsize * y + 10,
+          xsize - 10,
+          ysize - 10,
+        );
       }
     }
   }
