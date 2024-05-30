@@ -14,7 +14,7 @@ class Vector2 {
     return Vector2.sub(p1, new Vector2(this.x, this.y)).len();
   }
   static dist(p1, p2) {
-    Vector2.sub(p1, p2).len();
+    return Vector2.sub(p1, p2).len();
   }
   static mult(p1, val) {
     return new Vector2(p1.x * val, p1.y * val);
@@ -24,7 +24,10 @@ class Vector2 {
   }
 }
 
-var resolution=new Vector2(window.visualViewport.width,window.visualViewport.height);
+var resolution = new Vector2(
+  window.visualViewport.width,
+  window.visualViewport.height,
+);
 
 var grid_resolution = 200;
 class Cell {
@@ -184,9 +187,6 @@ class Canvas_manager {
     this.ctx.lineTo(p2.x, p2.y);
     this.ctx.stroke();
 
-    /* this.ctx.strokeStyle = "blue";
-    this.ctx.fillRect(p1.x, p1.y, 5, 5);
-    this.ctx.fillRect(p2.x, p2.y, 5, 5); */
   }
   draw_pos(p1, p2) {
     this.ctx.strokeStyle = "white";
@@ -195,26 +195,16 @@ class Canvas_manager {
     this.ctx.fillRect(p1.x - size / 2, p1.y - size / 2, size, size);
   }
   draw_grid() {
-    this.ctx.lineWidth = 10;
-    this.ctx.strokeStyle = "#0000ff";
-    const xsize = grid_resolution;
-    const ysize = grid_resolution;
-    for (let x = 0; x < resolution.x / grid_resolution; x++) {
-      for (let y = 0; y <resolution.y  / grid_resolution; y++) {
-        /* this.ctx.moveTo(xsize*x, ysize*y)
-        this.ctx.lineTo(xsize*(x+1), ysize*y)
-        this.ctx.lineTo(xsize*(x+1), ysize*(y+1))
-        this.ctx.lineTo(xsize*(x), ysize*(y+1)) */
-
-        // this.ctx.fillStyle="#a0a0ff10"
-        // this.ctx.fillRect(xsize*x,xsize*y,xsize,ysize)
-        //
-        this.ctx.fillStyle = "#ff000020";
+    this.ctx.fillStyle = "#ff000020";
+    const res=grid_resolution
+    const padding=10
+    for (let x = 0; x < resolution.x / res; x++) {
+      for (let y = 0; y < resolution.y / res; y++) {
         this.ctx.fillRect(
-          xsize * x + 10,
-          xsize * y + 10,
-          xsize - 10,
-          ysize - 10,
+          res * x + padding,
+          res * y + padding,
+          res - padding,
+          res - padding,
         );
       }
     }
