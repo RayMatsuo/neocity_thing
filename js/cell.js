@@ -23,6 +23,9 @@ class Cell {
   constructor(parent, index) {
     this.mng = parent;
     this.position = new Vector2();
+    this.momentum = new Vector2();
+    this.decay = 0.8;
+    this.theta=Math.random()*360
     this.index = index;
     this.grid = new Vector2();
   }
@@ -31,8 +34,18 @@ class Cell {
     this.grid.y = Math.floor(this.position.y / grid_resolution);
   }
   update() {
-    this.position.x = (this.position.x + (Math.random() * 5 - 2.5)) % 1920;
-    this.position.y = (this.position.y + (Math.random() * 5 - 2.5)) % 1080;
+    const rad=Math.PI/180
+    this.momentum.x += Math.sin(this.theta*rad);
+    this.momentum.y += Math.cos(this.theta*rad);
+    
+    this.theta+=Math.random()*5-2.5
+
+    this.position.x = (this.position.x + this.momentum.x) % 1920;
+    this.position.y = (this.position.y + this.momentum.y) % 1080;
+
+    this.momentum.x *= this.decay;
+    this.momentum.y *= this.decay;
+
     this.update_grid();
   }
 }
@@ -146,8 +159,8 @@ class Canvas_manager {
   }
   draw_pos(p1) {
     this.ctx.strokeStyle = "white";
-    this.ctx.fillStyle="white"
-    const size = 5
+    this.ctx.fillStyle = "white";
+    const size = 5;
     this.ctx.fillRect(p1.x - size / 2, p1.y - size / 2, size, size);
   }
 }
