@@ -16,15 +16,22 @@ class Vector2 {
   static dist(p1, p2) {
     Vector2.sub(p1, p2).len();
   }
+  static mult(p1, val) {
+    return new Vector2(p1.x * val, p1.y * val);
+  }
+  static add(p1, p2) {
+    return new Vector2(p2.x + p1.x, p2.y + p1.y);
+  }
 }
 
-const grid_resolution = 1900;
+const grid_resolution = 1920;
 class Cell {
   constructor(parent, index) {
     this.mng = parent;
     this.position = new Vector2();
     this.momentum = new Vector2();
-    this.decay = 0.8;
+    this.direction = new Vector2();
+    this.decay = 0.6;
     this.theta = Math.random() * 360;
     this.index = index;
     this.grid = new Vector2();
@@ -35,10 +42,14 @@ class Cell {
   }
   update() {
     const rad = Math.PI / 180;
-    this.momentum.x += Math.sin(this.theta * rad);
-    this.momentum.y += Math.cos(this.theta * rad);
 
-    this.theta += Math.random() * 30 - 15;
+    this.direction.x = Math.sin(this.theta * rad);
+    this.direction.y = Math.cos(this.theta * rad);
+
+    this.momentum.x = this.direction.x * 1;
+    this.momentum.y = this.direction.y * 1;
+
+    this.theta += Math.random() * 10 - 5;
 
     this.position.x = (this.position.x + this.momentum.x) % 1920;
     this.position.y = (this.position.y + this.momentum.y) % 1080;
@@ -83,22 +94,31 @@ class Cell_manager {
         grid[cell.grid.x + ":" + cell.grid.y] = [];
       }
       grid[cell.grid.x + ":" + cell.grid.y].push(cell);
-      this.canvas.draw_pos(cell.position,cell.momentum);
+      this.canvas.draw_pos(cell.position);
+      this.canvas.draw_line(
+        cell.position,
+        Vector2.add(cell.position, Vector2.mult(cell.direction, 20)),
+        "#ff0000",
+        1,
+      );
     }
     const keys = Object.keys(grid);
     keys.forEach((x) => {
       /**@type{Array.<Cell>}  */
       const arr = grid[x];
+      const comp=[]
 
       if (arr.length > 1) {
         arr.forEach((c) => {
           arr.forEach((b) => {
-            if (c.index != b.index) {
+            if (c.index != b.index&&comp[c.index+":"+b.index]==null) {
+              comp[c.index+":"+b.index]=1
               const distance = c.position.dist(b.position);
-              if (distance < 400) {
+              if (distance < 200) {
                 this.canvas.draw_line(
                   c.position,
                   b.position,
+                  "#ffffff60",
                   Math.floor(distance / 100),
                 );
               }
@@ -112,8 +132,8 @@ class Cell_manager {
   init_cells() {
     for (let i = 0; i < this.cell_count; i++) {
       const cell = new Cell(this, i);
-      cell.position.x = Math.random() * 600;
-      cell.position.y = Math.random() * 600;
+      cell.position.x = Math.random() * 1920;
+      cell.position.y = Math.random() * 1080;
       this.cell_list.push(cell);
     }
   }
@@ -145,9 +165,9 @@ class Canvas_manager {
     });
   }
 
-  draw_line(p1, p2, thickness = 3) {
+  draw_line(p1, p2, color, thickness = 3) {
     this.ctx.lineWidth = thickness;
-    this.ctx.strokeStyle = "#ffffff10";
+    this.ctx.strokeStyle = color;
     this.ctx.beginPath();
     this.ctx.moveTo(p1.x, p1.y);
     this.ctx.lineTo(p2.x, p2.y);
@@ -157,19 +177,10 @@ class Canvas_manager {
     this.ctx.fillRect(p1.x, p1.y, 5, 5);
     this.ctx.fillRect(p2.x, p2.y, 5, 5); */
   }
-  draw_pos(p1,p2) {
+  draw_pos(p1, p2) {
     this.ctx.strokeStyle = "white";
     this.ctx.fillStyle = "white";
     const size = 5;
     this.ctx.fillRect(p1.x - size / 2, p1.y - size / 2, size, size);
-
-
-    this.ctx.lineWidth = 1;
-    this.ctx.strokeStyle = "red";
-    this.ctx.beginPath();
-    this.ctx.moveTo(p1.x,p1.y);
-    this.ctx.lineTo(p1.x+p2.x*20, p1.y+p2.y*20);
-    this.ctx.stroke();
-    
   }
 }
