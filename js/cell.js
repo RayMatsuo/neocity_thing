@@ -6,25 +6,39 @@ var resolution = new Vector2(
 var grid_resolution = 200;
 
 var cry=[
-  'help',
+  '<span style="color:red">help</span>',
   "i'm tired",
   "I don't want to keep going",
+  "why am i alive",
+  "i can't keep paying for this",
+  "please someone hold me",
+  "please someone keep me safe for once",
+  "i'm tired of fighting for someone",
 ]
 
 class Cell {
   constructor(parent, index) {
     this.mng = parent;
+    
+    this.index = index;
+    
+    
     this.position = new Vector2();
+    this.grid = new Vector2();
     this.momentum = new Vector2();
     this.direction = new Vector2();
+    
     this.decay = 0.3;
     this.theta = Math.random() * 360;
-    this.index = index;
-    this.grid = new Vector2();
-    this.attribute = new Cell_attribute();
+    
     this.pause = false;
     this.on_mouse = false;
-    this.msg = new Cell_message(cry[Math.floor(Math.random() * cry.length)]);
+    
+    const i=Math.floor(Math.random() * cry.length)
+    const colors=["#ffaaff","#00aaff","#ffffff"]
+    this.msg = new Cell_message(cry[i]);
+    
+    this.attribute = new Cell_attribute({'color':colors[i%colors.length]});
   }
   update_grid() {
     this.grid.x = Math.floor(this.position.x / grid_resolution);
@@ -44,6 +58,17 @@ class Cell {
 
     this.momentum.x += this.direction.x * 1;
     this.momentum.y += this.direction.y * 1;
+
+    if(this.mng.selected!=null)
+    {
+      const selected=this.mng.selected
+      const local=Vector2.sub(this.position,selected.position)
+      const len=local.len()
+      const dir=local.normalize().mult(1*(50/len))
+      this.momentum.x+=dir.x
+      this.momentum.y+=dir.y
+    }
+
 
     this.theta += Math.random() * 10 - 5;
 
@@ -102,9 +127,7 @@ class Cell_manager {
 
     this.init_loop();
     this.popup = document.getElementById("popup");
-    /* this.canvas.set_mouseover_cb(() => {
-      this.frame_callback();
-    }); */
+    this.selected=null
   }
 
   init_loop() {
@@ -122,6 +145,7 @@ class Cell_manager {
   frame_callback() {
     this.update_cell();
     this.update_cell_grid();
+    this.selected=null
 
     this.popup.innerText = "";
     this.popup.style.display = "none";
@@ -135,15 +159,16 @@ class Cell_manager {
       const arr = this.grid[index];
       arr.forEach((cell) => {
         const dist = mpos.dist(cell.position);
-        if (dist < 50) {
+        /* if (dist < 50) {
           cell.attribute.color = "#ff0000";
           cell.attribute.size = 10;
-        }
+        } */
         if (dist < 10) {
           cell.pause = true;
-          cell.attribute.color = "#00ffff";
+          // cell.attribute.color = "#00ffff";
           cell.attribute.size = 15;
           cell.attribute.on_mouse = false;
+          this.selected=cell
           this.canvas.root.style.cursor = "pointer";
           this.popup.style.left = mpos.x + "px";
           this.popup.style.top = mpos.y + "px";
