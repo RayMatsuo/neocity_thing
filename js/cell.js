@@ -4,6 +4,13 @@ var resolution = new Vector2(
 );
 
 var grid_resolution = 200;
+
+var cry=[
+  'help',
+  "i'm tired",
+  "I don't want to keep going",
+]
+
 class Cell {
   constructor(parent, index) {
     this.mng = parent;
@@ -17,6 +24,7 @@ class Cell {
     this.attribute = new Cell_attribute();
     this.pause = false;
     this.on_mouse = false;
+    this.msg = new Cell_message(cry[Math.floor(Math.random() * cry.length)]);
   }
   update_grid() {
     this.grid.x = Math.floor(this.position.x / grid_resolution);
@@ -26,7 +34,7 @@ class Cell {
   update() {
     this.on_mouse = false;
     if (this.pause) {
-      this.pause=false
+      this.pause = false;
       return;
     }
     const rad = Math.PI / 180;
@@ -69,7 +77,19 @@ class Cell_attribute {
     return this.size;
   }
 }
-
+class Cell_message {
+  constructor(text = "") {
+    this.text = text;
+    this.color = "black";
+  }
+  get_text() {
+    const span = document.createElement("span");
+    span.innerHTML = this.text;
+    span.style.color = this.color;
+    span.style.marginLeft = "5px";
+    return span;
+  }
+}
 class Cell_manager {
   constructor(cellcount = 10) {
     this.cell_count = cellcount;
@@ -120,15 +140,14 @@ class Cell_manager {
           cell.attribute.size = 10;
         }
         if (dist < 10) {
-          cell.pause=true
+          cell.pause = true;
           cell.attribute.color = "#00ffff";
           cell.attribute.size = 15;
           cell.attribute.on_mouse = false;
-          cell.momentum.mult_self(0);
           this.canvas.root.style.cursor = "pointer";
           this.popup.style.left = mpos.x + "px";
           this.popup.style.top = mpos.y + "px";
-          this.popup.innerText = cell.index;
+          this.popup.append(cell.msg.get_text());
           this.popup.style.display = "";
         }
       });
