@@ -1,29 +1,3 @@
-class Vector2 {
-  constructor(x = 0, y = 0) {
-    this.x = x;
-    this.y = y;
-  }
-  static sub(p1, p2) {
-    return new Vector2(p2.x - p1.x, p2.y - p1.y);
-  }
-  len() {
-    return Math.abs(Math.sqrt(this.x * this.x + this.y * this.y));
-  }
-
-  dist(p1) {
-    return Vector2.sub(p1, new Vector2(this.x, this.y)).len();
-  }
-  static dist(p1, p2) {
-    return Vector2.sub(p1, p2).len();
-  }
-  static mult(p1, val) {
-    return new Vector2(p1.x * val, p1.y * val);
-  }
-  static add(p1, p2) {
-    return new Vector2(p2.x + p1.x, p2.y + p1.y);
-  }
-}
-
 var resolution = new Vector2(
   window.visualViewport.width,
   window.visualViewport.height,
@@ -36,23 +10,32 @@ class Cell {
     this.position = new Vector2();
     this.momentum = new Vector2();
     this.direction = new Vector2();
-    this.decay = 0.6;
+    this.decay = 0.3;
     this.theta = Math.random() * 360;
     this.index = index;
     this.grid = new Vector2();
+    this.attribute = new Cell_attribute();
+    this.pause = false;
+    this.on_mouse = false;
   }
   update_grid() {
     this.grid.x = Math.floor(this.position.x / grid_resolution);
     this.grid.y = Math.floor(this.position.y / grid_resolution);
   }
+
   update() {
+    this.on_mouse = false;
+    if (this.pause) {
+      this.pause=false
+      return;
+    }
     const rad = Math.PI / 180;
 
     this.direction.x = Math.sin(this.theta * rad);
     this.direction.y = Math.cos(this.theta * rad);
 
-    this.momentum.x = this.direction.x * 1;
-    this.momentum.y = this.direction.y * 1;
+    this.momentum.x += this.direction.x * 1;
+    this.momentum.y += this.direction.y * 1;
 
     this.theta += Math.random() * 10 - 5;
 
@@ -63,6 +46,27 @@ class Cell {
     this.momentum.y *= this.decay;
 
     this.update_grid();
+  }
+}
+
+class Cell_attribute {
+  constructor(attr = {}) {
+    this.attr = attr;
+    this.color = attr["color"] ?? "#ffffff";
+    this.opacity = attr["opacity"] ?? 255;
+    this.size = attr["size"] ?? 5;
+  }
+  reset() {
+    const attr = this.attr;
+    this.color = attr["color"] ?? "#ffffff";
+    this.opacity = attr["opacity"] ?? 255;
+    this.size = attr["size"] ?? 5;
+  }
+  get_color() {
+    return this.color + this.opacity.toString(16);
+  }
+  get_size() {
+    return this.size;
   }
 }
 
@@ -77,6 +81,7 @@ class Cell_manager {
     this.show_grid = false;
 
     this.init_loop();
+    this.popup = document.getElementById("popup");
     /* this.canvas.set_mouseover_cb(() => {
       this.frame_callback();
     }); */
@@ -95,28 +100,82 @@ class Cell_manager {
   }
 
   frame_callback() {
+    this.update_cell();
+    this.update_cell_grid();
+
+    this.popup.innerText = "";
+    this.popup.style.display = "none";
     const mpos = this.canvas.mouse_pos;
-    let grid = [];
+    const mgrid = this.canvas.mouse_grid;
+
+    const index = mgrid.x + ":" + mgrid.y;
+    this.canvas.root.style.cursor = "";
+    if (this.grid[index] != null) {
+      /**@type{Array.<Cell>}  */
+      const arr = this.grid[index];
+      arr.forEach((cell) => {
+        const dist = mpos.dist(cell.position);
+        if (dist < 50) {
+          cell.attribute.color = "#ff0000";
+          cell.attribute.size = 10;
+        }
+        if (dist < 10) {
+          cell.pause=true
+          cell.attribute.color = "#00ffff";
+          cell.attribute.size = 15;
+          cell.attribute.on_mouse = false;
+          cell.momentum.mult_self(0);
+          this.canvas.root.style.cursor = "pointer";
+          this.popup.style.left = mpos.x + "px";
+          this.popup.style.top = mpos.y + "px";
+          this.popup.innerText = cell.index;
+          this.popup.style.display = "";
+        }
+      });
+    }
+
+    this.display_line();
+    this.display_cell();
+  }
+  update_cell() {
     for (let i = 0; i < this.cell_count; i++) {
       const cell = this.cell_list[i];
       cell.update();
-
-      if (grid[cell.grid.x + ":" + cell.grid.y] == null) {
-        grid[cell.grid.x + ":" + cell.grid.y] = [];
-      }
-      grid[cell.grid.x + ":" + cell.grid.y].push(cell);
-      this.canvas.draw_pos(cell.position);
-      this.canvas.draw_line(
-        cell.position,
-        Vector2.add(cell.position, Vector2.mult(cell.direction, 20)),
-        "#ff0000",
-        1,
-      );
     }
-    const keys = Object.keys(grid);
+  }
+
+  display_cell() {
+    for (let i = 0; i < this.cell_count; i++) {
+      /**@type{Cell}  */
+      const cell = this.cell_list[i];
+      this.canvas.draw_pos(
+        cell.position,
+        cell.attribute.get_color(),
+        cell.attribute.size,
+      );
+      cell.attribute.reset();
+    }
+  }
+
+  update_cell_grid() {
+    this.grid = [];
+    for (let i = 0; i < this.cell_count; i++) {
+      const cell = this.cell_list[i];
+
+      if (this.grid[cell.grid.x + ":" + cell.grid.y] == null) {
+        this.grid[cell.grid.x + ":" + cell.grid.y] = [];
+      }
+      this.grid[cell.grid.x + ":" + cell.grid.y].push(cell);
+      // this.canvas.draw_pos(cell.position);
+      // this.canvas.draw_line( cell.position, Vector2.add(cell.position, Vector2.mult(cell.direction, 20)), "#ff0000", 1,);
+    }
+  }
+
+  display_line() {
+    const keys = Object.keys(this.grid);
     keys.forEach((x) => {
       /**@type{Array.<Cell>}  */
-      const arr = grid[x];
+      const arr = this.grid[x];
       const comp = [];
 
       if (arr.length > 1) {
@@ -162,8 +221,9 @@ class Canvas_manager {
     this.ctx = this.root.getContext("2d");
     this.ctx.lineWidth = 30;
     this.mouse_pos = new Vector2();
+    this.mouse_grid = new Vector2();
     this.mouseover_cb = function () {};
-    // this.init_event();
+    this.init_event();
   }
 
   set_mouseover_cb(cb) {
@@ -172,10 +232,11 @@ class Canvas_manager {
 
   init_event() {
     this.root.addEventListener("mousemove", (e) => {
-      // this.ctx.clearRect(0, 0, 1920, 1080);
+      console.log(1);
       this.mouse_pos.x = e.clientX;
       this.mouse_pos.y = e.clientY;
-      // this.mouseover_cb();
+      this.mouse_grid.x = Math.floor(this.mouse_pos.x / grid_resolution);
+      this.mouse_grid.y = Math.floor(this.mouse_pos.y / grid_resolution);
     });
   }
 
@@ -186,18 +247,16 @@ class Canvas_manager {
     this.ctx.moveTo(p1.x, p1.y);
     this.ctx.lineTo(p2.x, p2.y);
     this.ctx.stroke();
-
   }
-  draw_pos(p1, p2) {
-    this.ctx.strokeStyle = "white";
-    this.ctx.fillStyle = "white";
-    const size = 5;
+  draw_pos(p1, color = "white", size = 5) {
+    this.ctx.strokeStyle = color;
+    this.ctx.fillStyle = color;
     this.ctx.fillRect(p1.x - size / 2, p1.y - size / 2, size, size);
   }
   draw_grid() {
     this.ctx.fillStyle = "#ff000020";
-    const res=grid_resolution
-    const padding=10
+    const res = grid_resolution;
+    const padding = 10;
     for (let x = 0; x < resolution.x / res; x++) {
       for (let y = 0; y < resolution.y / res; y++) {
         this.ctx.fillRect(
