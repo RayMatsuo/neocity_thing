@@ -25,5 +25,12 @@ body {
   pointer-events: none;
   transform: translateY(-20px);
 }
+.canvas__popup p {
+  color: red;
+  display: inline;
+}
+.canvas__popup span {
+  color: red;
+}
 
 /*# sourceMappingURL=index.css.map */

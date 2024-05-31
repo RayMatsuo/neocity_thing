@@ -27,5 +27,12 @@ body {
     pointer-events: none;
     
     transform: translateY(-20px);
+    p{
+     color:red;
+     display:inline;
+    }
+    span{
+      color:red
+    }
   }
 }
