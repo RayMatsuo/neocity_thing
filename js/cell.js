@@ -266,7 +266,6 @@ class Canvas_manager {
 
   init_event() {
     this.root.addEventListener("mousemove", (e) => {
-      console.log(1);
       this.mouse_pos.x = e.clientX;
       this.mouse_pos.y = e.clientY;
       this.mouse_grid.x = Math.floor(this.mouse_pos.x / grid_resolution);
