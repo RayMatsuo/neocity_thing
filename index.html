@@ -4,13 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The webbed site of marcie</title>
+  <title>The webbed site of marcie m</title>
   <link href="./css/reset.css" rel="stylesheet" type="text/css" media="all" />
   <link href="/style.css" rel="stylesheet" type="text/css" media="all" />
   <link href="./css/shorthand/shorthand.css" rel="stylesheet" type="text/css" media="all" />
   <link href="./css/index.css" rel="stylesheet" type="text/css" media="all" />
+  <script src="./js/msg.js"></script>
   <script src="./js/Vector.js"></script>
-  <script src="./js/cell.js" ></script>
+  <script  src="./js/cell.js" ></script>
   <script src="./js/index.js"></script>
 </head>
 
@@ -21,7 +22,7 @@
       <div class="canvas__popup" id="popup"></div>
     </div>
   </section>
-  <section class="col-white mb-m">
+  <section class="col-white mb-m" id="main_text">
     <h1>Welcome to my Website!</h1>
     <p>!!!under construction!!!</p>
     <p>I'm just coding as i feel like at this moment.</p>
@@ -31,11 +32,17 @@
     <p>walls are closing up around me</p>
     <p>suffocating me</p>
   </section>
-  <section class="col-white">
+  <section class="col-white" id="control">
     <ul>
       <li>grid visualization:<input id="grid_visualization" type="checkbox" /></li>
       <li>grid size:<input id="grid_size" type="number" min="100" /></li>
       <li>max line distance:<input id="line_range" type="number" /></li>
+    </ul>
+  </section>
+
+  <section class="col-white">
+    <ul>
+      <li>hide ui:<input id="hide_ui" type="checkbox" /></li>
     </ul>
   </section>
 </body>

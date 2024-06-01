@@ -2,6 +2,10 @@ window.addEventListener("load", () => {
   const grid_visualization = document.getElementById("grid_visualization");
   const grid_size = document.getElementById("grid_size");
   const line_range = document.getElementById("line_range");
+  const hide_ui = document.getElementById("hide_ui");
+  const control = document.getElementById("control");
+  const main_text  = document.getElementById("main_text");
+
 
   var mng = new Cell_manager(150);
 
@@ -26,4 +30,11 @@ window.addEventListener("load", () => {
     mng.canvas.root.width = resolution.x;
     mng.canvas.root.height = resolution.y;
   };
+
+
+  hide_ui.onchange=()=>{
+   const display= hide_ui.checked?"none":"";   
+    main_text.style.display=display
+    control.style.display=display
+  }
 });
