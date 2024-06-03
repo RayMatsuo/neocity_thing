@@ -47,8 +47,8 @@ class Cell {
 
     this.alignment = is_hope;
     // this.attribute = new Cell_attribute({ color: color });
-    // this.attribute = new Cell_attribute({ color: colors[is_hope ? 1 : 0] });
-    this.attribute = new Cell_attribute({'color':colors[i%colors.length]});
+    this.attribute = new Cell_attribute({ color: colors[is_hope ? 1 : 0] });
+    // this.attribute = new Cell_attribute({'color':colors[i%colors.length]});
   }
   update_grid() {
     this.grid.x = Math.floor(this.position.x / grid_resolution);
