@@ -24,11 +24,14 @@ class Cell {
     this.pause = false;
     this.on_mouse = false;
     
-    const i=Math.floor(Math.random() * cry.length)
-    const colors=["#ffaaff","#00aaff","#ffffff"]
-    this.msg = new Cell_message(cry[i]);
+    const is_hope=Math.random()<0.5
+    const msg=[hope,cry][is_hope?1:0]
+    const i=Math.floor(Math.random() * msg.length)
+    const colors=["#00aaff","#ff0000"]
+    this.msg = new Cell_message(msg[i]);
     
-    this.attribute = new Cell_attribute({'color':colors[i%colors.length]});
+    this.attribute = new Cell_attribute({'color':colors[is_hope?1:0]});
+    // this.attribute = new Cell_attribute({'color':colors[i%colors.length]});
   }
   update_grid() {
     this.grid.x = Math.floor(this.position.x / grid_resolution);
@@ -225,7 +228,8 @@ class Cell_manager {
                 this.canvas.draw_line(
                   c.position,
                   b.position,
-                  "#ffffff" + op,
+                  // "#ffffff" + op,
+                  c.attribute.get_color(),
                   Math.floor(distance / (this.line_range / 4)),
                 );
               }

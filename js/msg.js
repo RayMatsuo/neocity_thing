@@ -15,3 +15,8 @@ var cry=[
   "i dont know what <span>comfort</span> is",
   "i just everyone to be safe"
 ]
+
+var hope=[
+  "I want to go to vacation",
+  "I wish everyone around me were safe",
+]
