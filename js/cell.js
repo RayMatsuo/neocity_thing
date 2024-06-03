@@ -9,7 +9,6 @@ class Cell {
   constructor(parent, index) {
     this.mng = parent;
 
-
     this.index = index;
 
     this.position = new Vector2();
@@ -17,7 +16,6 @@ class Cell {
     this.momentum = new Vector2();
     this.direction = new Vector2();
     this.speed = 1;
-    
 
     this.decay = 0.3;
     this.theta = Math.random() * 360;
@@ -28,12 +26,29 @@ class Cell {
     const is_hope = Math.random() < 0.5;
     const msg = [hope, cry][is_hope ? 1 : 0];
     const i = Math.floor(Math.random() * msg.length);
+
+
+    /* if(is_hope)
+  {
+      var r=Math.floor(125+(Math.random())*127)
+      var g=Math.floor(125+(Math.random())*127)
+      var b=Math.floor(125+(Math.random())*127)
+    }else{
+      
+      var r=Math.floor((Math.random())*127)
+      var g=Math.floor((Math.random())*127)
+      var b=Math.floor((Math.random())*127)
+    } */
+    // const color="#"+r.toString(16)+g.toString(16)+b.toString(16)
+
+    
     const colors = ["#00aaff", "#ff0000"];
     this.msg = new Cell_message(msg[i]);
 
-    this.alignment=is_hope
-    this.attribute = new Cell_attribute({ color: colors[is_hope ? 1 : 0] });
-    // this.attribute = new Cell_attribute({'color':colors[i%colors.length]});
+    this.alignment = is_hope;
+    // this.attribute = new Cell_attribute({ color: color });
+    // this.attribute = new Cell_attribute({ color: colors[is_hope ? 1 : 0] });
+    this.attribute = new Cell_attribute({'color':colors[i%colors.length]});
   }
   update_grid() {
     this.grid.x = Math.floor(this.position.x / grid_resolution);
@@ -59,11 +74,10 @@ class Cell {
       const local = Vector2.sub(this.position, selected.position);
       const len = local.len();
       const dir = local.normalize().mult(1 * (50 / len));
-      if(this.alignment!=selected.alignment)
-    {
-        dir.mirror()
+      if (this.alignment != selected.alignment) {
+        dir.mirror();
       }
-      this.momentum.add_force(dir,1)
+      this.momentum.add_force(dir, 1);
       this.momentum.x += dir.x;
       this.momentum.y += dir.y;
     }
