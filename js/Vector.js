@@ -9,14 +9,13 @@ class Vector2 {
   len() {
     return Math.abs(Math.sqrt(this.x * this.x + this.y * this.y));
   }
-   mult_self(val) {
-    this.x*=val
-    this.y*=val
+  mult_self(val) {
+    this.x *= val;
+    this.y *= val;
   }
 
-
-   mult(val) {
-   return new Vector2(this.x*val,this.y*val)
+  mult(val) {
+    return new Vector2(this.x * val, this.y * val);
   }
   dist(p1) {
     return Vector2.sub(p1, new Vector2(this.x, this.y)).len();
@@ -31,12 +30,19 @@ class Vector2 {
     return new Vector2(p2.x + p1.x, p2.y + p1.y);
   }
   static sub(p1, p2) {
-    
     return new Vector2(p2.x - p1.x, p2.y - p1.y);
   }
-  normalize()
-  {
-    const factor=1/this.len()
-    return new Vector2(this.x*factor,this.y*factor)
+  normalize() {
+    const factor = 1 / this.len();
+    return new Vector2(this.x * factor, this.y * factor);
+  }
+  add_force(direction, force) {
+    this.x += direction.x * force;
+    this.y += direction.y * force;
+  }
+  mirror()
+{
+    this.x*=-1
+    this.y*=-1
   }
 }

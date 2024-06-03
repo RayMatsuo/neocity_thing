@@ -5,32 +5,34 @@ var resolution = new Vector2(
 
 var grid_resolution = 200;
 
-
 class Cell {
   constructor(parent, index) {
     this.mng = parent;
-    
+
+
     this.index = index;
-    
-    
+
     this.position = new Vector2();
     this.grid = new Vector2();
     this.momentum = new Vector2();
     this.direction = new Vector2();
+    this.speed = 1;
     
+
     this.decay = 0.3;
     this.theta = Math.random() * 360;
-    
+
     this.pause = false;
     this.on_mouse = false;
-    
-    const is_hope=Math.random()<0.5
-    const msg=[hope,cry][is_hope?1:0]
-    const i=Math.floor(Math.random() * msg.length)
-    const colors=["#00aaff","#ff0000"]
+
+    const is_hope = Math.random() < 0.5;
+    const msg = [hope, cry][is_hope ? 1 : 0];
+    const i = Math.floor(Math.random() * msg.length);
+    const colors = ["#00aaff", "#ff0000"];
     this.msg = new Cell_message(msg[i]);
-    
-    this.attribute = new Cell_attribute({'color':colors[is_hope?1:0]});
+
+    this.alignment=is_hope
+    this.attribute = new Cell_attribute({ color: colors[is_hope ? 1 : 0] });
     // this.attribute = new Cell_attribute({'color':colors[i%colors.length]});
   }
   update_grid() {
@@ -49,19 +51,22 @@ class Cell {
     this.direction.x = Math.sin(this.theta * rad);
     this.direction.y = Math.cos(this.theta * rad);
 
-    this.momentum.x += this.direction.x * 1;
-    this.momentum.y += this.direction.y * 1;
+    this.momentum.x += this.direction.x * this.speed;
+    this.momentum.y += this.direction.y * this.speed;
 
-    if(this.mng.selected!=null)
+    if (this.mng.selected != null) {
+      const selected = this.mng.selected;
+      const local = Vector2.sub(this.position, selected.position);
+      const len = local.len();
+      const dir = local.normalize().mult(1 * (50 / len));
+      if(this.alignment!=selected.alignment)
     {
-      const selected=this.mng.selected
-      const local=Vector2.sub(this.position,selected.position)
-      const len=local.len()
-      const dir=local.normalize().mult(1*(50/len))
-      this.momentum.x+=dir.x
-      this.momentum.y+=dir.y
+        dir.mirror()
+      }
+      this.momentum.add_force(dir,1)
+      this.momentum.x += dir.x;
+      this.momentum.y += dir.y;
     }
-
 
     this.theta += Math.random() * 10 - 5;
 
@@ -120,7 +125,7 @@ class Cell_manager {
 
     this.init_loop();
     this.popup = document.getElementById("popup");
-    this.selected=null
+    this.selected = null;
   }
 
   init_loop() {
@@ -138,7 +143,7 @@ class Cell_manager {
   frame_callback() {
     this.update_cell();
     this.update_cell_grid();
-    this.selected=null
+    this.selected = null;
 
     this.popup.innerText = "";
     this.popup.style.display = "none";
@@ -161,7 +166,7 @@ class Cell_manager {
           // cell.attribute.color = "#00ffff";
           cell.attribute.size = 15;
           cell.attribute.on_mouse = false;
-          this.selected=cell
+          this.selected = cell;
           this.canvas.root.style.cursor = "pointer";
           this.popup.style.left = mpos.x + "px";
           this.popup.style.top = mpos.y + "px";
@@ -225,7 +230,7 @@ class Cell_manager {
                 const op = Math.floor(
                   (1 - distance / this.line_range) * 255,
                 ).toString(16);
-                c.attribute.opacity=op
+                c.attribute.opacity = op;
                 this.canvas.draw_line(
                   c.position,
                   b.position,
