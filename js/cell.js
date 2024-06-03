@@ -225,6 +225,7 @@ class Cell_manager {
                 const op = Math.floor(
                   (1 - distance / this.line_range) * 255,
                 ).toString(16);
+                c.attribute.opacity=op
                 this.canvas.draw_line(
                   c.position,
                   b.position,
