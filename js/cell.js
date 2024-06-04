@@ -3,7 +3,7 @@ var resolution = new Vector2(
   window.visualViewport.height,
 );
 
-var grid_resolution = 200;
+var grid_resolution = 150;
 
 class Cell {
   constructor(parent, index) {

@@ -28,6 +28,7 @@ body {
 .canvas__popup p {
   color: red;
   display: inline;
+  background-color: black;
 }
 .canvas__popup span {
   color: red;
