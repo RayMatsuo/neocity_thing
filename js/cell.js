@@ -23,12 +23,11 @@ class Cell {
     this.pause = false;
     this.on_mouse = false;
 
-    const is_hope = Math.random() < 0.5;
-    const msg = [hope, cry][is_hope ? 1 : 0];
+    const alignment = Math.floor(Math.random() * 3);
+    const msg = [hope, cry, question][alignment];
     const i = Math.floor(Math.random() * msg.length);
 
-
-    /* if(is_hope)
+    /* if(alignment)
   {
       var r=Math.floor(125+(Math.random())*127)
       var g=Math.floor(125+(Math.random())*127)
@@ -41,13 +40,13 @@ class Cell {
     } */
     // const color="#"+r.toString(16)+g.toString(16)+b.toString(16)
 
-    
-    const colors = ["#00aaff", "#ff0000"];
+    const colors = ["#00aaff", "#ee1010", "#f0f020"];
+    // const colors = ["#ff0000", "#00ff00", "#0000ff"];
     this.msg = new Cell_message(msg[i]);
 
-    this.alignment = is_hope;
+    this.alignment = alignment;
     // this.attribute = new Cell_attribute({ color: color });
-    this.attribute = new Cell_attribute({ color: colors[is_hope ? 1 : 0] });
+    this.attribute = new Cell_attribute({ color: colors[alignment] });
     // this.attribute = new Cell_attribute({'color':colors[i%colors.length]});
   }
   update_grid() {
@@ -94,21 +93,60 @@ class Cell {
   }
 }
 
+class Color {
+  constructor(r = 255, g = 255, b = 255, a = 255) {
+    this.r = r;
+    this.g = g;
+    this.b = b;
+    this.a = a;
+  }
+  to_hex_color() {
+    return (
+      "#" +
+      this.r.toString(16).padStart(2, 0) +
+      this.g.toString(16).padStart(2, 0) +
+      this.b.toString(16).padStart(2, 0) +
+      this.a.toString(16).padStart(2,0)
+    );
+  }
+  static average(c1, c2) {
+    const r = Math.min(255, Math.floor((c1.r + c2.r) / 2));
+    const g = Math.min(255, Math.floor((c1.g + c2.g) / 2));
+    const b = Math.min(255, Math.floor((c1.b + c2.b) / 2));
+    const a = Math.min(255, Math.floor((c1.a + c2.a) / 2));
+    return new Color(r, g, b, a);
+  }
+
+  load_hex(hex) {
+    this.r = parseInt("0x" + hex[1] + hex[2]);
+    this.g = parseInt("0x" + hex[3] + hex[4]);
+    this.b = parseInt("0x" + hex[5] + hex[6]);
+  }
+}
+
 class Cell_attribute {
   constructor(attr = {}) {
     this.attr = attr;
-    this.color = attr["color"] ?? "#ffffff";
+    this.color = new Color();
+    this.color.load_hex(attr["color"] ?? "#ffffff");
     this.opacity = attr["opacity"] ?? 255;
     this.size = attr["size"] ?? 5;
   }
   reset() {
     const attr = this.attr;
-    this.color = attr["color"] ?? "#ffffff";
+
+    this.color.load_hex(attr["color"] ?? "#ffffff");
     this.opacity = attr["opacity"] ?? 255;
     this.size = attr["size"] ?? 5;
   }
+
+  merge_color(c1, c2) {
+    const r = parseInt("0x" + this.color[1] + this.color[2]);
+    const g = parseInt("0x" + this.color[3] + this.color[4]);
+    const b = parseInt("0x" + this.color[5] + this.color[6]);
+  }
   get_color() {
-    return this.color + this.opacity.toString(16);
+    return this.color.to_hex_color();
   }
   get_size() {
     return this.size;
@@ -241,15 +279,20 @@ class Cell_manager {
               comp[c.index + ":" + b.index] = 1;
               const distance = c.position.dist(b.position);
               if (distance < this.line_range) {
+                const color=Color.average(c.attribute.color,b.attribute.color)
                 const op = Math.floor(
                   (1 - distance / this.line_range) * 255,
                 ).toString(16);
                 c.attribute.opacity = op;
+                
+                color.a=op
+
+                
                 this.canvas.draw_line(
                   c.position,
                   b.position,
                   // "#ffffff" + op,
-                  c.attribute.get_color(),
+                  color.to_hex_color(),
                   Math.floor(distance / (this.line_range / 4)),
                 );
               }
@@ -296,7 +339,6 @@ class Canvas_manager {
       this.mouse_grid.y = Math.floor(this.mouse_pos.y / grid_resolution);
     });
   }
-
   draw_line(p1, p2, color, thickness = 3) {
     this.ctx.lineWidth = thickness;
     this.ctx.strokeStyle = color;
