@@ -50,6 +50,7 @@ class Cell {
       return;
     }
     const rad = Math.PI / 180;
+    this.theta += Math.random() * 10 - 5;
 
     this.direction.x = Math.sin(this.theta * rad);
     this.direction.y = Math.cos(this.theta * rad);
@@ -61,6 +62,8 @@ class Cell {
       const selected = this.mng.selected;
       const local = Vector2.sub(this.position, selected.position);
       const len = local.len();
+      // if(len<500)
+    {
       const dir = local.normalize().mult(1 * (50 / len));
       if (this.alignment != selected.alignment) {
         dir.mirror();
@@ -68,9 +71,8 @@ class Cell {
       this.momentum.add_force(dir, 1);
       this.momentum.x += dir.x;
       this.momentum.y += dir.y;
+      }
     }
-
-    this.theta += Math.random() * 10 - 5;
 
     this.position.x = (this.position.x + this.momentum.x) % resolution.x;
     this.position.y = (this.position.y + this.momentum.y) % resolution.y;
@@ -275,7 +277,7 @@ class Cell_manager {
             if (c.index != b.index && comp[left + ":" + right] == null) {
               comp[left + ":" + right] = true;
               const distance = c.position.dist(b.position);
-              // 
+              //
               // check if 2 points are close enough
               if (distance < this.line_range) {
                 const color = Color.average(

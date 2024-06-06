@@ -20,6 +20,8 @@ var cry = [
   "i'm tired of giving something i also <p>need</p>",
   "i don't have anything left to <p>give</p>",
   "why do you <p>take</p> from me",
+  "how long do i have to endure",
+  "<p>catastrophes</p> waiting around every corner",
 ];
 
 var question = [
