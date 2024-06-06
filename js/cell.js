@@ -31,11 +31,14 @@ class Cell {
 
     const colors = ["#00aaff", "#ee1010", "#f0f020"];
     // const colors = ["#ff0000", "#00ff00", "#0000ff"];
+
     this.msg = new Cell_message(msg[i]);
 
     this.alignment = alignment;
-    // this.attribute = new Cell_attribute({ color: color });
+
+    // NOTE: message set specific color
     this.attribute = new Cell_attribute({ color: colors[alignment] });
+    // NOTE: random color
     // this.attribute = new Cell_attribute({'color':colors[i%colors.length]});
   }
   update_grid() {
@@ -49,6 +52,7 @@ class Cell {
       this.pause = false;
       return;
     }
+    // rotate the thang by little bit
     const rad = Math.PI / 180;
     this.theta += Math.random() * 10 - 5;
 
@@ -58,19 +62,20 @@ class Cell {
     this.momentum.x += this.direction.x * this.speed;
     this.momentum.y += this.direction.y * this.speed;
 
+    // make it attracted to one under cursor
     if (this.mng.selected != null) {
       const selected = this.mng.selected;
       const local = Vector2.sub(this.position, selected.position);
       const len = local.len();
       // if(len<500)
-    {
-      const dir = local.normalize().mult(1 * (50 / len));
-      if (this.alignment != selected.alignment) {
-        dir.mirror();
-      }
-      this.momentum.add_force(dir, 1);
-      this.momentum.x += dir.x;
-      this.momentum.y += dir.y;
+      {
+        const dir = local.normalize().mult(1 * (50 / len));
+        if (this.alignment != selected.alignment) {
+          dir.mirror();
+        }
+        this.momentum.add_force(dir, 1);
+        this.momentum.x += dir.x;
+        this.momentum.y += dir.y;
       }
     }
 
@@ -115,6 +120,7 @@ class Color {
   }
 }
 
+/** Visual attributes for individual stars */
 class Cell_attribute {
   constructor(attr = {}) {
     this.attr = attr;
@@ -131,11 +137,6 @@ class Cell_attribute {
     this.size = attr["size"] ?? 5;
   }
 
-  merge_color(c1, c2) {
-    const r = parseInt("0x" + this.color[1] + this.color[2]);
-    const g = parseInt("0x" + this.color[3] + this.color[4]);
-    const b = parseInt("0x" + this.color[5] + this.color[6]);
-  }
   get_color() {
     return this.color.to_hex_color();
   }
@@ -143,6 +144,7 @@ class Cell_attribute {
     return this.size;
   }
 }
+/**Message and formatting attributes  */
 class Cell_message {
   constructor(text = "") {
     this.text = text;
@@ -156,6 +158,8 @@ class Cell_message {
     return span;
   }
 }
+
+/**Simulation manager   */
 class Cell_manager {
   constructor(cellcount = 10) {
     this.cell_count = cellcount;
@@ -183,30 +187,29 @@ class Cell_manager {
     }, 100 / 60);
   }
 
+  /**Per frame callback  */
   frame_callback() {
     this.update_cell();
     this.update_cell_grid();
     this.selected = null;
 
+    /**clear the popup  */
     this.popup.innerText = "";
     this.popup.style.display = "none";
     const mpos = this.canvas.mouse_pos;
     const mgrid = this.canvas.mouse_grid;
-
     const index = mgrid.x + ":" + mgrid.y;
+
     this.canvas.root.style.cursor = "";
+
     if (this.grid[index] != null) {
       /**@type{Array.<Cell>}  */
       const arr = this.grid[index];
+      /** check if a star is close to the mouse and if so display the text*/
       arr.forEach((cell) => {
         const dist = mpos.dist(cell.position);
-        /* if (dist < 50) {
-          cell.attribute.color = "#ff0000";
-          cell.attribute.size = 10;
-        } */
         if (dist < 10) {
           cell.pause = true;
-          // cell.attribute.color = "#00ffff";
           cell.attribute.size = 15;
           cell.attribute.on_mouse = false;
           this.selected = cell;
@@ -219,9 +222,12 @@ class Cell_manager {
       });
     }
 
+    // Actual rendering
     this.display_line();
     this.display_cell();
   }
+
+  /**Call update function on every stars  */
   update_cell() {
     for (let i = 0; i < this.cell_count; i++) {
       const cell = this.cell_list[i];
@@ -242,6 +248,7 @@ class Cell_manager {
     }
   }
 
+  /**Update star position on grid  */
   update_cell_grid() {
     this.grid = [];
     for (let i = 0; i < this.cell_count; i++) {
@@ -251,8 +258,6 @@ class Cell_manager {
         this.grid[cell.grid.x + ":" + cell.grid.y] = [];
       }
       this.grid[cell.grid.x + ":" + cell.grid.y].push(cell);
-      // this.canvas.draw_pos(cell.position);
-      // this.canvas.draw_line( cell.position, Vector2.add(cell.position, Vector2.mult(cell.direction, 20)), "#ff0000", 1,);
     }
   }
 
@@ -306,6 +311,7 @@ class Cell_manager {
     });
   }
 
+  /**List initialization + Initial star position randomization */
   init_cells() {
     for (let i = 0; i < this.cell_count; i++) {
       const cell = new Cell(this, i);
@@ -316,9 +322,10 @@ class Cell_manager {
   }
 }
 
+/**Renderer. Just a wrapper for canvas functions and mouse position detection */
 class Canvas_manager {
   constructor() {
-    /**@type{HTMLCanvasElement}  */
+    /**@type{HTMLCanvasElement}  the canvas element*/
     this.root = document.getElementsByClassName("js-canvas")[0];
     this.root.width = resolution.x;
     this.root.height = resolution.y;
@@ -330,10 +337,12 @@ class Canvas_manager {
     this.init_event();
   }
 
+  /**obsolete. meant for calling function on mouse movement */
   set_mouseover_cb(cb) {
     this, (this.mouseover_cb = cb);
   }
 
+  /**Updates mouse position  */
   init_event() {
     this.root.addEventListener("mousemove", (e) => {
       this.mouse_pos.x = e.clientX;
@@ -342,6 +351,8 @@ class Canvas_manager {
       this.mouse_grid.y = Math.floor(this.mouse_pos.y / grid_resolution);
     });
   }
+  
+  /**Humble function to draw a line between 2 points. Such a good girl.  */
   draw_line(p1, p2, color, thickness = 3) {
     this.ctx.lineWidth = thickness;
     this.ctx.strokeStyle = color;
@@ -350,11 +361,14 @@ class Canvas_manager {
     this.ctx.lineTo(p2.x, p2.y);
     this.ctx.stroke();
   }
+  
+  /**A diligent function to draw a little square around stars. She's dating the line function. Also a good girl. */
   draw_pos(p1, color = "white", size = 5) {
     this.ctx.strokeStyle = color;
     this.ctx.fillStyle = color;
     this.ctx.fillRect(p1.x - size / 2, p1.y - size / 2, size, size);
   }
+  /**A function to visualize the grid. She's also dating all of them.  */
   draw_grid() {
     this.ctx.fillStyle = "#ff000020";
     const res = grid_resolution;
