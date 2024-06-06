@@ -1,6 +1,5 @@
-
 var cry = [
-  '<span>help</span>',
+  "<span>help</span>",
   "i'm tired",
   "I don't want to keep going",
   "why am i <p>alive</p>",
@@ -21,7 +20,7 @@ var cry = [
   "i'm tired of giving something i also <p>need</p>",
   "i don't have anything left to <p>give</p>",
   "why do you <p>take</p> from me",
-]
+];
 
 var question = [
   "why did you <p>abandon</p> your kid",
@@ -32,11 +31,11 @@ var question = [
   "you <p>asked me</p> to bring a razer blade for us to <p>kill ourselves</p>",
   "why didn't you <p>love me unconditionally</p>",
   "why did you even give birth to me",
-]
+];
 
 var hope = [
   "I want to go to vacation",
   "I wish everyone around me were safe",
   "its nice to talk to people i'm comfortable with",
   "I want to feel hopeful with someone",
-]
+];

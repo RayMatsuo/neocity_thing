@@ -27,18 +27,7 @@ class Cell {
     const msg = [hope, cry, question][alignment];
     const i = Math.floor(Math.random() * msg.length);
 
-    /* if(alignment)
-  {
-      var r=Math.floor(125+(Math.random())*127)
-      var g=Math.floor(125+(Math.random())*127)
-      var b=Math.floor(125+(Math.random())*127)
-    }else{
-      
-      var r=Math.floor((Math.random())*127)
-      var g=Math.floor((Math.random())*127)
-      var b=Math.floor((Math.random())*127)
-    } */
-    // const color="#"+r.toString(16)+g.toString(16)+b.toString(16)
+    // NOTE: make it so each alignment has particular color range?
 
     const colors = ["#00aaff", "#ee1010", "#f0f020"];
     // const colors = ["#ff0000", "#00ff00", "#0000ff"];
@@ -106,7 +95,7 @@ class Color {
       this.r.toString(16).padStart(2, 0) +
       this.g.toString(16).padStart(2, 0) +
       this.b.toString(16).padStart(2, 0) +
-      this.a.toString(16).padStart(2,0)
+      this.a.toString(16).padStart(2, 0)
     );
   }
   static average(c1, c2) {
@@ -267,27 +256,39 @@ class Cell_manager {
 
   display_line() {
     const keys = Object.keys(this.grid);
+    // Loop thru each grid
     keys.forEach((x) => {
       /**@type{Array.<Cell>}  */
       const arr = this.grid[x];
       const comp = [];
 
       if (arr.length > 1) {
+        // loop thru cells in grid
         arr.forEach((c) => {
           arr.forEach((b) => {
-            if (c.index != b.index && comp[c.index + ":" + b.index] == null) {
-              comp[c.index + ":" + b.index] = 1;
+            // check if connection has already been made
+
+            const compare = c.index < b.index;
+            const left = compare ? c.index : b.index;
+            const right = compare ? b.index : c.index;
+
+            if (c.index != b.index && comp[left + ":" + right] == null) {
+              comp[left + ":" + right] = true;
               const distance = c.position.dist(b.position);
+              // 
+              // check if 2 points are close enough
               if (distance < this.line_range) {
-                const color=Color.average(c.attribute.color,b.attribute.color)
+                const color = Color.average(
+                  c.attribute.color,
+                  b.attribute.color,
+                );
                 const op = Math.floor(
                   (1 - distance / this.line_range) * 255,
                 ).toString(16);
                 c.attribute.opacity = op;
-                
-                color.a=op
 
-                
+                color.a = op;
+
                 this.canvas.draw_line(
                   c.position,
                   b.position,
