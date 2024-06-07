@@ -203,6 +203,7 @@ class Cell_manager {
     this.canvas.root.style.cursor = "";
 
     if (this.grid[index] != null) {
+    const frag = document.createDocumentFragment();
       /**@type{Array.<Cell>}  */
       const arr = this.grid[index];
       /** check if a star is close to the mouse and if so display the text*/
@@ -216,10 +217,12 @@ class Cell_manager {
           this.canvas.root.style.cursor = "pointer";
           this.popup.style.left = mpos.x + "px";
           this.popup.style.top = mpos.y + "px";
-          this.popup.append(cell.msg.get_text());
+          frag.appendChild(cell.msg.get_text());
           this.popup.style.display = "";
         }
       });
+
+      this.popup.append(frag);
     }
 
     // Actual rendering
@@ -351,7 +354,7 @@ class Canvas_manager {
       this.mouse_grid.y = Math.floor(this.mouse_pos.y / grid_resolution);
     });
   }
-  
+
   /**Humble function to draw a line between 2 points. Such a good girl.  */
   draw_line(p1, p2, color, thickness = 3) {
     this.ctx.lineWidth = thickness;
@@ -361,7 +364,7 @@ class Canvas_manager {
     this.ctx.lineTo(p2.x, p2.y);
     this.ctx.stroke();
   }
-  
+
   /**A diligent function to draw a little square around stars. She's dating the line function. Also a good girl. */
   draw_pos(p1, color = "white", size = 5) {
     this.ctx.strokeStyle = color;

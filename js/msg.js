@@ -29,7 +29,7 @@ var question = [
   "why the fuck did think its good to <p>kill</p> your own kid",
   "why won't you ever take my <p>anger</p> seriously",
   "why did you threaten your <p>suicidal kid</p> with homelessness",
-  "i cried,begged and clang on your leg <p>not to leave</p> ",
+  "i cried,begged and clung to your leg <p>not to leave</p> ",
   "you <p>asked me</p> to bring a razer blade for us to <p>kill ourselves</p>",
   "why didn't you <p>love me unconditionally</p>",
   "why did you even give birth to me",
