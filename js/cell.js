@@ -1,4 +1,4 @@
-var resolution = new Vector2(
+var resolution = new Vector3(
   window.visualViewport.width,
   window.visualViewport.height,
 );
@@ -11,14 +11,15 @@ class Cell {
 
     this.index = index;
 
-    this.position = new Vector2();
-    this.grid = new Vector2();
-    this.momentum = new Vector2();
-    this.direction = new Vector2();
+    this.position = new Vector3();
+    this.grid = new Vector3();
+    this.momentum = new Vector3();
+    this.direction = new Vector3();
     this.speed = 1;
 
     this.decay = 0.3;
     this.theta = Math.random() * 360;
+    this.theta2 = Math.random() * 360;
 
     this.pause = false;
     this.on_mouse = false;
@@ -54,18 +55,25 @@ class Cell {
     }
     // rotate the thang by little bit
     const rad = Math.PI / 180;
+
     this.theta += Math.random() * 10 - 5;
+    /* this.theta += 5
+    this.theta2 += 5 */
+    // this.theta+=3
 
-    this.direction.x = Math.sin(this.theta * rad);
-    this.direction.y = Math.cos(this.theta * rad);
-
+    /* this.direction.x = Math.sin(this.theta * rad);
+    this.direction.y = Math.cos(this.theta * rad); */
+    
+    this.direction=Vector3.rotate(null, new Vector3(0,0,this.theta))
+    
     this.momentum.x += this.direction.x * this.speed;
     this.momentum.y += this.direction.y * this.speed;
+    this.momentum.z += this.direction.z * this.speed;
 
     // make it attracted to one under cursor
     if (this.mng.selected != null) {
       const selected = this.mng.selected;
-      const local = Vector2.sub(this.position, selected.position);
+      const local = Vector3.sub(this.position, selected.position);
       const len = local.len();
       // if(len<500)
       {
@@ -76,14 +84,17 @@ class Cell {
         this.momentum.add_force(dir, 1);
         this.momentum.x += dir.x;
         this.momentum.y += dir.y;
+        this.momentum.z += dir.z;
       }
     }
 
     this.position.x = (this.position.x + this.momentum.x) % resolution.x;
     this.position.y = (this.position.y + this.momentum.y) % resolution.y;
+    this.position.z = (this.position.z + this.momentum.z) ;
 
     this.momentum.x *= this.decay;
     this.momentum.y *= this.decay;
+    this.momentum.z *= this.decay;
 
     this.update_grid();
   }
@@ -203,9 +214,10 @@ class Cell_manager {
     this.canvas.root.style.cursor = "";
 
     if (this.grid[index] != null) {
-    const frag = document.createDocumentFragment();
+      const frag = document.createDocumentFragment();
       /**@type{Array.<Cell>}  */
       const arr = this.grid[index];
+      let hit = false;
       /** check if a star is close to the mouse and if so display the text*/
       arr.forEach((cell) => {
         const dist = mpos.dist(cell.position);
@@ -214,15 +226,17 @@ class Cell_manager {
           cell.attribute.size = 15;
           cell.attribute.on_mouse = false;
           this.selected = cell;
-          this.canvas.root.style.cursor = "pointer";
-          this.popup.style.left = mpos.x + "px";
-          this.popup.style.top = mpos.y + "px";
           frag.appendChild(cell.msg.get_text());
-          this.popup.style.display = "";
+          hit = true;
         }
       });
-
-      this.popup.append(frag);
+      if (hit) {
+        this.canvas.root.style.cursor = "pointer";
+        this.popup.style.left = mpos.x + "px";
+        this.popup.style.top = mpos.y + "px";
+        this.popup.style.display = "";
+        this.popup.append(frag);
+      }
     }
 
     // Actual rendering
@@ -334,8 +348,8 @@ class Canvas_manager {
     this.root.height = resolution.y;
     this.ctx = this.root.getContext("2d");
     this.ctx.lineWidth = 30;
-    this.mouse_pos = new Vector2();
-    this.mouse_grid = new Vector2();
+    this.mouse_pos = new Vector3();
+    this.mouse_grid = new Vector3();
     this.mouseover_cb = function () {};
     this.init_event();
   }
