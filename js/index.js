@@ -5,6 +5,7 @@ window.addEventListener("load", () => {
   const hide_ui = document.getElementById("hide_ui");
   const control = document.getElementById("control");
   const main_text  = document.getElementById("main_text");
+  const no_screen_clear  = document.getElementById("no_screen_clear");
 
 
   var mng = new Cell_manager(150);
@@ -36,5 +37,9 @@ window.addEventListener("load", () => {
    const display= hide_ui.checked?"none":"";   
     main_text.style.display=display
     control.style.display=display
+  }
+  no_screen_clear.checked=false
+  no_screen_clear.onchange=()=>{
+   disable_clear_screen=no_screen_clear.checked 
   }
 });

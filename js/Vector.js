@@ -73,11 +73,11 @@ class Vector3 {
     const sin = Math.sin;
 
     const rad = Math.PI / 180;
-    rotation.x*=rad
-    rotation.y*=rad
-    rotation.z*=rad
+    rotation.x *= rad;
+    rotation.y *= rad;
+    rotation.z *= rad;
     /*x*/
-    let x = Vector3.mat_mul(
+    let x = Vector3.mtx_mul(
       [
         [1, 0, 0],
         [0, cos(rotation.x), -sin(rotation.x)],
@@ -85,7 +85,7 @@ class Vector3 {
       ],
       v,
     );
-    x = Vector3.mat_mul(
+    x = Vector3.mtx_mul(
       [
         [cos(rotation.y), 0, sin(rotation.y)],
         [0, 1, 0],
@@ -93,7 +93,7 @@ class Vector3 {
       ],
       x,
     );
-    x = Vector3.mat_mul(
+    x = Vector3.mtx_mul(
       [
         [cos(rotation.z), sin(rotation.z), 0],
         [-sin(rotation.z), cos(rotation.z), 0],
@@ -103,7 +103,7 @@ class Vector3 {
     );
     return x;
   }
-  static mat_mul(mat, vec) {
+  static mtx_mul(mat, vec) {
     let res = [0, 0, 0];
     let def = [vec.x, vec.y, vec.z];
     for (let i = 0; i < 3; i++) {

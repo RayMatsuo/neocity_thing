@@ -4,7 +4,7 @@ var resolution = new Vector3(
 );
 
 var grid_resolution = 150;
-
+var disable_clear_screen=false
 class Cell {
   constructor(parent, index) {
     this.mng = parent;
@@ -18,8 +18,7 @@ class Cell {
     this.speed = 1;
 
     this.decay = 0.3;
-    this.theta = Math.random() * 360;
-    this.theta2 = Math.random() * 360;
+    this.rotation = new Vector3(0, 0, Math.random() * 360);
 
     this.pause = false;
     this.on_mouse = false;
@@ -56,16 +55,16 @@ class Cell {
     // rotate the thang by little bit
     const rad = Math.PI / 180;
 
-    this.theta += Math.random() * 10 - 5;
+    this.rotation.z += Math.random() * 10 - 5;
     /* this.theta += 5
     this.theta2 += 5 */
     // this.theta+=3
 
     /* this.direction.x = Math.sin(this.theta * rad);
     this.direction.y = Math.cos(this.theta * rad); */
-    
-    this.direction=Vector3.rotate(null, new Vector3(0,0,this.theta))
-    
+
+    this.direction = Vector3.rotate(null, new Vector3(0, 0, this.rotation.z));
+
     this.momentum.x += this.direction.x * this.speed;
     this.momentum.y += this.direction.y * this.speed;
     this.momentum.z += this.direction.z * this.speed;
@@ -90,7 +89,7 @@ class Cell {
 
     this.position.x = (this.position.x + this.momentum.x) % resolution.x;
     this.position.y = (this.position.y + this.momentum.y) % resolution.y;
-    this.position.z = (this.position.z + this.momentum.z) ;
+    this.position.z = this.position.z + this.momentum.z;
 
     this.momentum.x *= this.decay;
     this.momentum.y *= this.decay;
@@ -137,14 +136,12 @@ class Cell_attribute {
     this.attr = attr;
     this.color = new Color();
     this.color.load_hex(attr["color"] ?? "#ffffff");
-    this.opacity = attr["opacity"] ?? 255;
     this.size = attr["size"] ?? 5;
   }
   reset() {
     const attr = this.attr;
 
     this.color.load_hex(attr["color"] ?? "#ffffff");
-    this.opacity = attr["opacity"] ?? 255;
     this.size = attr["size"] ?? 5;
   }
 
@@ -188,7 +185,10 @@ class Cell_manager {
 
   init_loop() {
     window.setTimeout(() => {
+      if(!disable_clear_screen)
+    {
       this.canvas.ctx.clearRect(0, 0, resolution.x, resolution.y);
+      }
       if (this.show_grid) {
         this.canvas.draw_grid();
       }
@@ -220,7 +220,9 @@ class Cell_manager {
       let hit = false;
       /** check if a star is close to the mouse and if so display the text*/
       arr.forEach((cell) => {
-        const dist = mpos.dist(cell.position);
+        const dist = mpos.dist(
+          new Vector3(cell.position.x, cell.position.y, 0),
+        );
         if (dist < 10) {
           cell.pause = true;
           cell.attribute.size = 15;
@@ -260,6 +262,7 @@ class Cell_manager {
         cell.position,
         cell.attribute.get_color(),
         cell.attribute.size,
+        // 2+(((Math.max(-100,Math.min(cell.position.z,100)))+100)/200)*3,
       );
       cell.attribute.reset();
     }
@@ -299,7 +302,7 @@ class Cell_manager {
             if (c.index != b.index && comp[left + ":" + right] == null) {
               comp[left + ":" + right] = true;
               const distance = c.position.dist(b.position);
-              //
+
               // check if 2 points are close enough
               if (distance < this.line_range) {
                 const color = Color.average(
@@ -309,7 +312,6 @@ class Cell_manager {
                 const op = Math.floor(
                   (1 - distance / this.line_range) * 255,
                 ).toString(16);
-                c.attribute.opacity = op;
 
                 color.a = op;
 
@@ -334,6 +336,7 @@ class Cell_manager {
       const cell = new Cell(this, i);
       cell.position.x = Math.random() * resolution.x;
       cell.position.y = Math.random() * resolution.y;
+      // cell.position.z = (Math.random() * 2)>1?100:-100;
       this.cell_list.push(cell);
     }
   }
@@ -356,7 +359,7 @@ class Canvas_manager {
 
   /**obsolete. meant for calling function on mouse movement */
   set_mouseover_cb(cb) {
-    this, (this.mouseover_cb = cb);
+    this.mouseover_cb = cb;
   }
 
   /**Updates mouse position  */
@@ -377,6 +380,7 @@ class Canvas_manager {
     this.ctx.moveTo(p1.x, p1.y);
     this.ctx.lineTo(p2.x, p2.y);
     this.ctx.stroke();
+    this.ctx.fill();
   }
 
   /**A diligent function to draw a little square around stars. She's dating the line function. Also a good girl. */
@@ -385,6 +389,7 @@ class Canvas_manager {
     this.ctx.fillStyle = color;
     this.ctx.fillRect(p1.x - size / 2, p1.y - size / 2, size, size);
   }
+
   /**A function to visualize the grid. She's also dating all of them.  */
   draw_grid() {
     this.ctx.fillStyle = "#ff000020";
