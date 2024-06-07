@@ -24,6 +24,9 @@ var cry = [
   "<p>catastrophes</p> waiting around every corner",
   "why can't i have more",
   "don't i deserve more after everything",
+  "i'm tired of wanting",
+  "i'm tired of hoping and longing",
+  
 ];
 
 var question = [
