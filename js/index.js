@@ -15,21 +15,25 @@ window.addEventListener("load", () => {
   }
   var mng = new Cell_manager(cell_count);
 
+  // Grid button
   mng.show_grid = grid_visualization.checked;
-
   grid_visualization.onchange = () => {
     mng.show_grid = grid_visualization.checked;
   };
+
+  // Line range
+  line_range.value = mng.line_range;
   line_range.onchange = () => {
     mng.line_range = line_range.value;
   };
 
+  // Grid Size
+  grid_size.value = grid_resolution;
   grid_size.onchange = () => {
     grid_resolution = Math.max(grid_size.value, 100);
   };
-  grid_size.value = grid_resolution;
-  line_range.value = mng.line_range;
 
+  // Dynamic resolution update
   window.onresize = () => {
     resolution.x = window.visualViewport.width;
     resolution.y = window.visualViewport.height;
@@ -37,11 +41,14 @@ window.addEventListener("load", () => {
     mng.canvas.root.height = resolution.y;
   };
 
+  // Hide UI
   hide_ui.onchange = () => {
     const display = hide_ui.checked ? "none" : "";
     main_text.style.display = display;
     control.style.display = display;
   };
+  
+  // Disable Screen Clear
   no_screen_clear.checked = false;
   no_screen_clear.onchange = () => {
     disable_clear_screen = no_screen_clear.checked;
