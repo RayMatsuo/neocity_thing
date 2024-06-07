@@ -4,11 +4,16 @@ window.addEventListener("load", () => {
   const line_range = document.getElementById("line_range");
   const hide_ui = document.getElementById("hide_ui");
   const control = document.getElementById("control");
-  const main_text  = document.getElementById("main_text");
-  const no_screen_clear  = document.getElementById("no_screen_clear");
+  const main_text = document.getElementById("main_text");
+  const no_screen_clear = document.getElementById("no_screen_clear");
 
+  var cell_count = 150;
+  if (window.visualViewport.width < 750) {
+    cell_count = 50;
 
-  var mng = new Cell_manager(150);
+    grid_resolution = 150;
+  }
+  var mng = new Cell_manager(cell_count);
 
   mng.show_grid = grid_visualization.checked;
 
@@ -32,14 +37,13 @@ window.addEventListener("load", () => {
     mng.canvas.root.height = resolution.y;
   };
 
-
-  hide_ui.onchange=()=>{
-   const display= hide_ui.checked?"none":"";   
-    main_text.style.display=display
-    control.style.display=display
-  }
-  no_screen_clear.checked=false
-  no_screen_clear.onchange=()=>{
-   disable_clear_screen=no_screen_clear.checked 
-  }
+  hide_ui.onchange = () => {
+    const display = hide_ui.checked ? "none" : "";
+    main_text.style.display = display;
+    control.style.display = display;
+  };
+  no_screen_clear.checked = false;
+  no_screen_clear.onchange = () => {
+    disable_clear_screen = no_screen_clear.checked;
+  };
 });
