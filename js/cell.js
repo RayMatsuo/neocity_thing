@@ -4,7 +4,7 @@ var resolution = new Vector3(
 );
 
 var grid_resolution = 150;
-var disable_clear_screen=false
+var disable_clear_screen = false;
 class Cell {
   constructor(parent, index) {
     this.mng = parent;
@@ -185,9 +185,8 @@ class Cell_manager {
 
   init_loop() {
     window.setTimeout(() => {
-      if(!disable_clear_screen)
-    {
-      this.canvas.ctx.clearRect(0, 0, resolution.x, resolution.y);
+      if (!disable_clear_screen) {
+        this.canvas.ctx.clearRect(0, 0, resolution.x, resolution.y);
       }
       if (this.show_grid) {
         this.canvas.draw_grid();
