@@ -26,6 +26,7 @@ var cry = [
   "don't i deserve more after everything",
   "i'm tired of wanting",
   "i'm tired of hoping and longing",
+  "i'm a scum",
   
 ];
 

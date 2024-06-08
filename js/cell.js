@@ -1,3 +1,7 @@
+/**
+ *TODO: Prevent messages from changing order
+ *
+ * */
 var resolution = new Vector3(
   window.visualViewport.width,
   window.visualViewport.height,
@@ -159,7 +163,7 @@ class Cell_message {
     this.color = "black";
   }
   get_text() {
-    const span = document.createElement("span");
+    const span = document.createElement("div");
     span.innerHTML = this.text;
     span.style.color = this.color;
     span.style.marginLeft = "5px";

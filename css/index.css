@@ -30,6 +30,7 @@ body {
   display: inline;
 }
 .canvas__popup span {
+  display: inline;
   color: red;
 }
 
