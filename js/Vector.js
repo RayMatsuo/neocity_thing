@@ -89,14 +89,14 @@ class Vector3 {
       [
         [cos(rotation.y), 0, sin(rotation.y)],
         [0, 1, 0],
-        [sin(rotation.y), 0, cos(rotation.y)],
+        [-sin(rotation.y), 0, cos(rotation.y)],
       ],
       x,
     );
     x = Vector3.mtx_mul(
       [
-        [cos(rotation.z), sin(rotation.z), 0],
-        [-sin(rotation.z), cos(rotation.z), 0],
+        [cos(rotation.z), -sin(rotation.z), 0],
+        [sin(rotation.z), cos(rotation.z), 0],
         [0, 0, 1],
       ],
       x,

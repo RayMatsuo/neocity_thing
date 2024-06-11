@@ -51,6 +51,6 @@ window.addEventListener("load", () => {
   // Disable Screen Clear
   no_screen_clear.checked = false;
   no_screen_clear.onchange = () => {
-    disable_clear_screen = no_screen_clear.checked;
+    disable_screen_clear = no_screen_clear.checked;
   };
 });

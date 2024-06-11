@@ -27,7 +27,10 @@ var cry = [
   "i'm tired of wanting",
   "i'm tired of hoping and longing",
   "i'm a scum",
-  
+  "why am i like this",
+  "i deserve to be dead",
+  "i deserve to be in hell",
+  "useless piece of shit",
 ];
 
 var question = [

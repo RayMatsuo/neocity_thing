@@ -8,7 +8,7 @@ var resolution = new Vector3(
 );
 
 var grid_resolution = 150;
-var disable_clear_screen = false;
+var disable_screen_clear = false;
 class Cell {
   constructor(parent, index) {
     this.mng = parent;
@@ -27,8 +27,10 @@ class Cell {
     this.pause = false;
     this.on_mouse = false;
 
-    const alignment = Math.floor(Math.random() * 3);
-    const msg = [hope, cry, question][alignment];
+    const messages=[hope, cry, question];
+    // const alignment = Math.floor(Math.random() * 3);
+    const alignment = 1
+    const msg = messages[alignment];
     const i = Math.floor(Math.random() * msg.length);
 
     // NOTE: make it so each alignment has particular color range?
@@ -59,15 +61,13 @@ class Cell {
     // rotate the thang by little bit
     const rad = Math.PI / 180;
 
+    // this.rotation.x += Math.random() * 10 - 5;
+    // this.rotation.y += Math.random() * 10 - 5;
     this.rotation.z += Math.random() * 10 - 5;
-    /* this.theta += 5
-    this.theta2 += 5 */
-    // this.theta+=3
 
-    /* this.direction.x = Math.sin(this.theta * rad);
-    this.direction.y = Math.cos(this.theta * rad); */
 
-    this.direction = Vector3.rotate(null, new Vector3(0, 0, this.rotation.z));
+    // this.direction = Vector3.rotate(null, new Vector3(this.rotation.x, this.rotation.y, this.rotation.z));
+    this.direction = Vector3.rotate(null, new Vector3(0,0, this.rotation.z));
 
     this.momentum.x += this.direction.x * this.speed;
     this.momentum.y += this.direction.y * this.speed;
@@ -189,7 +189,7 @@ class Cell_manager {
 
   init_loop() {
     window.setTimeout(() => {
-      if (!disable_clear_screen) {
+      if (!disable_screen_clear) {
         this.canvas.ctx.clearRect(0, 0, resolution.x, resolution.y);
       }
       if (this.show_grid) {
