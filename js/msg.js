@@ -26,12 +26,30 @@ var cry = [
   "don't i deserve more after everything",
   "i'm tired of wanting",
   "i'm tired of hoping and longing",
+];
+var what_i_deserve=[
   "i'm a scum",
   "why am i like this",
   "i deserve to be dead",
   "i deserve to be in hell",
   "useless piece of shit",
-];
+  "why won't you fucking keep your mouth shut",
+  "why the fuck won't you comfort her",
+  "you are weak",
+  "don't pretend like you are strong",
+  "you are <p>too weak</p> to end this",
+  "you are <p>too scared</p>",
+  "you don't know shit",
+  "you do shit",
+  "and blame everything else for your shit",
+  "that's why you'll always be alone",
+  "that's why no one will take you seriously",
+  "that's why you will never grow up",
+  "you are too much of a pussy to do anything",
+  "and when you think you deserve to you try to be your fucking mom",
+  "and try to weaponize guilt",
+  "you disgust me",
+]
 
 var question = [
   "why did you <p>abandon</p> your kid",
