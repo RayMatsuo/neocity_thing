@@ -229,7 +229,7 @@ class Cell_manager {
         if (dist < 10) {
           cell.pause = true;
           cell.attribute.size = 15;
-          cell.attribute.on_mouse = false;
+          cell.attribute.on_mouse = true;
           this.selected = cell;
           frag.appendChild(cell.msg.get_text());
           hit = true;
