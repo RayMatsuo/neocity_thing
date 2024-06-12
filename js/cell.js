@@ -27,16 +27,16 @@ class Cell {
     this.pause = false;
     this.on_mouse = false;
 
-    // const messages=[hope, cry, question];
-    const messages = [cry, what_i_deserve];
+    const messages=[hope, cry, question,what_i_deserve];
+    // const messages = [cry, what_i_deserve];
     const alignment = Math.floor(Math.random() * messages.length);
     const msg = messages[alignment];
     const i = Math.floor(Math.random() * msg.length);
 
     // NOTE: make it so each alignment has particular color range?
 
-    const colors = ["#ee1010", "#606060"];
-    // const colors = ["#00aaff", "#ee1010", "#f0f020"];
+    // const colors = ["#ee1010", "#606060"];
+    const colors = ["#00aaff", "#ee1010", "#f0f020", "#606060"];
     // const colors = ["#ff0000", "#00ff00", "#0000ff"];
 
     this.msg = new Cell_message(msg[i]);
