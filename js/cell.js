@@ -28,14 +28,14 @@ class Cell {
     this.on_mouse = false;
 
     // const messages=[hope, cry, question];
-    const messages=[cry,what_i_deserve];
+    const messages = [cry, what_i_deserve];
     const alignment = Math.floor(Math.random() * messages.length);
     const msg = messages[alignment];
     const i = Math.floor(Math.random() * msg.length);
 
     // NOTE: make it so each alignment has particular color range?
 
-    const colors = [ "#ee1010", "#606060"];
+    const colors = ["#ee1010", "#606060"];
     // const colors = ["#00aaff", "#ee1010", "#f0f020"];
     // const colors = ["#ff0000", "#00ff00", "#0000ff"];
 
@@ -66,9 +66,8 @@ class Cell {
     // this.rotation.y += Math.random() * 10 - 5;
     this.rotation.z += Math.random() * 10 - 5;
 
-
     // this.direction = Vector3.rotate(null, new Vector3(this.rotation.x, this.rotation.y, this.rotation.z));
-    this.direction = Vector3.rotate(null, new Vector3(0,0, this.rotation.z));
+    this.direction = Vector3.rotate(null, new Vector3(0, 0, this.rotation.z));
 
     this.momentum.x += this.direction.x * this.speed;
     this.momentum.y += this.direction.y * this.speed;

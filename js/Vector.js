@@ -115,4 +115,7 @@ class Vector3 {
 
     return new Vector3(res[0], res[1], res[2]);
   }
+  static dot(v1, v2) {
+    return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+  }
 }
