@@ -1,5 +1,5 @@
 var cry = [
-  "<span>help</span>",
+  /* "<span>help</span>",
   "i'm tired",
   "I don't want to keep going",
   "why am i <p>alive</p>",
@@ -25,7 +25,9 @@ var cry = [
   "why can't i have more",
   "don't i deserve more after everything",
   "i'm tired of wanting",
-  "i'm tired of hoping and longing",
+  "i'm tired of hoping and longing", */
+  "oah['oeha['oehaohea[oerhaoerhoerhjew;nofjn;aowg[owrho[hg[rh['[iwj'pdawe'awegh'aiweg'awiejgpiweapin'asergie[j",
+  "<p>kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me kill me </p>",
 ];
 var what_i_deserve=[
   "i'm a <p>scum</p>",
