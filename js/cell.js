@@ -189,6 +189,12 @@ class Cell_manager {
   }
 
   init_loop() {
+    let speed=6;
+    if(navigator.userAgent.indexOf("Firefox")>-1)
+  {
+      speed*=10
+      
+    }
     window.setTimeout(() => {
       if (!disable_screen_clear) {
         this.canvas.ctx.clearRect(0, 0, resolution.x, resolution.y);
@@ -199,7 +205,7 @@ class Cell_manager {
       this.frame_callback();
 
       this.init_loop();
-    }, 100 / 60);
+    }, 100 / speed);
   }
 
   /**Per frame callback  */
