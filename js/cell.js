@@ -27,9 +27,10 @@ class Cell {
     this.pause = false;
     this.on_mouse = false;
 
-     const messages = [hope, cry, question, what_i_deserve];
+     const messages = [hope, cry, question, what_i_deserve].filter(x=>x.length>0);
     //const messages = [cry];
     // const messages = [cry, what_i_deserve];
+  
     const alignment = Math.floor(Math.random() * messages.length);
     const msg = messages[alignment];
     const i = Math.floor(Math.random() * msg.length);
