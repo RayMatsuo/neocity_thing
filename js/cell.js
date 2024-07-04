@@ -27,18 +27,20 @@ class Cell {
     this.pause = false;
     this.on_mouse = false;
 
-     const messages = [hope, cry, question, what_i_deserve].filter(x=>x.length>0);
+    const messages = [hope, cry, question, what_i_deserve].filter(
+      (x) => x.length > 0,
+    );
     //const messages = [cry];
     // const messages = [cry, what_i_deserve];
-  
+
     const alignment = Math.floor(Math.random() * messages.length);
     const msg = messages[alignment];
     const i = Math.floor(Math.random() * msg.length);
 
     // NOTE: make it so each alignment has particular color range?
 
-//   const colors = ["#ee1010", "#606060"];
-     const colors = ["#00aaff", "#ee1010", "#f0f020", "#606060"];
+    //   const colors = ["#ee1010", "#606060"];
+    const colors = ["#00aaff", "#ee1010", "#f0f020", "#606060"];
     // const colors = ["#ff0000", "#00ff00", "#0000ff"];
 
     this.msg = new Cell_message(msg[i]);
@@ -55,7 +57,7 @@ class Cell {
     this.grid.y = Math.floor(this.position.y / grid_resolution);
   }
 
-  update() {
+  update(is_constellation) {
     this.on_mouse = false;
     if (this.pause) {
       this.pause = false;
@@ -93,9 +95,11 @@ class Cell {
       }
     }
 
-    this.position.x = (this.position.x + this.momentum.x) % resolution.x;
-    this.position.y = (this.position.y + this.momentum.y) % resolution.y;
-    this.position.z = this.position.z + this.momentum.z;
+    if (!is_constellation) {
+      this.position.x = (this.position.x + this.momentum.x) % resolution.x;
+      this.position.y = (this.position.y + this.momentum.y) % resolution.y;
+      this.position.z = this.position.z + this.momentum.z;
+    }
 
     this.momentum.x *= this.decay;
     this.momentum.y *= this.decay;
@@ -181,6 +185,7 @@ class Cell_manager {
     this.init_cells();
     this.canvas = new Canvas_manager();
     this.line_range = 200;
+    this.is_constellation = false;
 
     this.show_grid = false;
 
@@ -190,11 +195,9 @@ class Cell_manager {
   }
 
   init_loop() {
-    let speed=6;
-    if(navigator.userAgent.indexOf("Firefox")>-1)
-  {
-      speed*=10
-      
+    let speed = 6;
+    if (navigator.userAgent.indexOf("Firefox") > -1) {
+      speed *= 10;
     }
     window.setTimeout(() => {
       if (!disable_screen_clear) {
@@ -261,7 +264,7 @@ class Cell_manager {
   update_cell() {
     for (let i = 0; i < this.cell_count; i++) {
       const cell = this.cell_list[i];
-      cell.update();
+      cell.update(this.is_constellation);
     }
   }
 
@@ -326,13 +329,15 @@ class Cell_manager {
 
                 color.a = op;
 
-                this.canvas.draw_line(
-                  c.position,
-                  b.position,
-                  // "#ffffff" + op,
-                  color.to_hex_color(),
-                  Math.floor(distance / (this.line_range / 4)),
-                );
+                if (c==this.selected||!this.is_constellation) {
+                  this.canvas.draw_line(
+                    c.position,
+                    b.position,
+                    // "#ffffff" + op,
+                    color.to_hex_color(),
+                    Math.floor(distance / (this.line_range / 4)),
+                  );
+                }
               }
             }
           });

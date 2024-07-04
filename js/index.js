@@ -6,6 +6,7 @@ window.addEventListener("load", () => {
   const control = document.getElementById("control");
   const main_text = document.getElementById("main_text");
   const no_screen_clear = document.getElementById("no_screen_clear");
+  const constellation = document.getElementById("constellation");
 
   var cell_count = 150;
   if (window.visualViewport.width < 750) {
@@ -52,5 +53,11 @@ window.addEventListener("load", () => {
   no_screen_clear.checked = false;
   no_screen_clear.onchange = () => {
     disable_screen_clear = no_screen_clear.checked;
+  };
+  
+  constellation.checked=false
+  
+  constellation.onchange = () => {
+    mng.is_constellation = constellation.checked;
   };
 });
