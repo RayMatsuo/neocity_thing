@@ -329,7 +329,11 @@ class Cell_manager {
 
                 color.a = op;
 
-                if (c==this.selected||!this.is_constellation) {
+                if (
+                  c == this.selected ||
+                  b == this.selected ||
+                  !this.is_constellation
+                ) {
                   this.canvas.draw_line(
                     c.position,
                     b.position,

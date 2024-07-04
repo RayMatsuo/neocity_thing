@@ -48,15 +48,15 @@ window.addEventListener("load", () => {
     main_text.style.display = display;
     control.style.display = display;
   };
-  
+
   // Disable Screen Clear
   no_screen_clear.checked = false;
   no_screen_clear.onchange = () => {
     disable_screen_clear = no_screen_clear.checked;
   };
-  
-  constellation.checked=false
-  
+
+  constellation.checked = false;
+
   constellation.onchange = () => {
     mng.is_constellation = constellation.checked;
   };
