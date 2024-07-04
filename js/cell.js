@@ -265,6 +265,7 @@ class Cell_manager {
     for (let i = 0; i < this.cell_count; i++) {
       const cell = this.cell_list[i];
       cell.update(this.is_constellation);
+// this.canvas.draw_line( cell.position, Vector3.add(cell.position, cell.momentum.normalize().mult(15)), "#ff0000", 2,);
     }
   }
 
@@ -356,6 +357,7 @@ class Cell_manager {
       const cell = new Cell(this, i);
       cell.position.x = Math.random() * resolution.x;
       cell.position.y = Math.random() * resolution.y;
+      // cell.position.z = Math.random() * resolution.y;
       // cell.position.z = (Math.random() * 2)>1?100:-100;
       this.cell_list.push(cell);
     }

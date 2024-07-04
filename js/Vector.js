@@ -50,10 +50,11 @@ class Vector3 {
     this.y *= -1;
     this.z *= -1;
   }
-  static rotate(v = null, rotation) {
+  static rotate(v = null, rot) {
     if (v == null) {
       v = new Vector3(0, 1, 0);
     }
+    let rotation=new Vector3(rot.x,rot.y,rot.z)
     /*
      * x=
      * [1 0 0]
