@@ -1,0 +1,42 @@
+body {
+  background-color: black;
+}
+
+.canvas {
+  z-index: -1;
+  position: relative;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.canvas__wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+.canvas__main {
+  width: 100%;
+  height: 100%;
+}
+.canvas__popup {
+  display: none;
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 5px;
+  pointer-events: none;
+  transform: translateY(-20px);
+}
+.canvas__popup p {
+  color: red;
+  display: inline;
+}
+.canvas__popup span {
+  display: inline;
+  color: red;
+}
+
+/*# sourceMappingURL=bio.css.map */

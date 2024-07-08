@@ -46,4 +46,20 @@
   color: var(--color-disabled);
 }
 
+.bg-white {
+  background-color: white;
+}
+.bg-black {
+  background-color: black;
+}
+.bg-grey {
+  background-color: var(--color-grey);
+}
+.bg-lightgrey {
+  background-color: var(--color-lightgrey);
+}
+.bg-red {
+  background-color: red;
+}
+
 /*# sourceMappingURL=color.css.map */

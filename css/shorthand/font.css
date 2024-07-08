@@ -10,6 +10,12 @@
 .font-title {
   font-size: 30px;
 }
+.font-1v {
+  font-size: 1vw;
+}
+.font-2v {
+  font-size: 2vw;
+}
 .font-14 {
   font-size: 14px;
 }

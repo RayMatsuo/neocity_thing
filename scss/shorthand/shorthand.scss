@@ -1,4 +1,3 @@
-
 @import "padding";
 @import "position";
 @import "height";
@@ -19,3 +18,11 @@
 @import "overflow";
 @import "display";
 @import "drag";
+
+.pointer-all {
+  pointer-events: all;
+}
+
+.pointer-none {
+  pointer-events: none;
+}

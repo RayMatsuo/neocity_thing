@@ -26,6 +26,7 @@ class Cell {
 
     this.pause = false;
     this.on_mouse = false;
+    this.click_callback = () => {console.log(this.index)};
 
     const messages = [hope, cry, question, what_i_deserve].filter(
       (x) => x.length > 0,
@@ -167,12 +168,16 @@ class Cell_message {
   constructor(text = "") {
     this.text = text;
     this.color = "black";
+    this.classList = [];
   }
   get_text() {
     const span = document.createElement("div");
     span.innerHTML = this.text;
     span.style.color = this.color;
     span.style.marginLeft = "5px";
+    this.classList.forEach((x) => {
+      span.classList.add(x);
+    });
     return span;
   }
 }
@@ -183,6 +188,7 @@ class Cell_manager {
     this.cell_count = cellcount;
     this.cell_list = [];
     this.init_cells();
+    this.init_bright_star();
     this.canvas = new Canvas_manager();
     this.line_range = 200;
     this.is_constellation = false;
@@ -192,6 +198,7 @@ class Cell_manager {
     this.init_loop();
     this.popup = document.getElementById("popup");
     this.selected = null;
+    Cell_manager.mng = this;
   }
 
   init_loop() {
@@ -237,10 +244,11 @@ class Cell_manager {
         const dist = mpos.dist(
           new Vector3(cell.position.x, cell.position.y, 0),
         );
-        if (dist < 10) {
+        // if (dist < cell.attribute.size*2) {
+        if (dist < cell.attribute.size * 2) {
           cell.pause = true;
           cell.attribute.size = 15;
-          cell.attribute.on_mouse = true;
+          cell.on_mouse = true;
           this.selected = cell;
           frag.appendChild(cell.msg.get_text());
           hit = true;
@@ -265,7 +273,7 @@ class Cell_manager {
     for (let i = 0; i < this.cell_count; i++) {
       const cell = this.cell_list[i];
       cell.update(this.is_constellation);
-// this.canvas.draw_line( cell.position, Vector3.add(cell.position, cell.momentum.normalize().mult(15)), "#ff0000", 2,);
+      // this.canvas.draw_line( cell.position, Vector3.add(cell.position, cell.momentum.normalize().mult(15)), "#ff0000", 2,);
     }
   }
 
@@ -362,6 +370,33 @@ class Cell_manager {
       this.cell_list.push(cell);
     }
   }
+  init_bright_star() {
+    /**@type{Cell}  */
+    const star = this.cell_list[0];
+    star.decay = 0;
+    star.attribute.attr["size"] = 35;
+    star.attribute.color.load_hex("#0000ff");
+    star.msg = new Cell_message(
+      `<a style="margin-right:20px" href="./bio.html" target="_blank">Welcome to my site!<br>Heres my bio.</a>`,
+    );
+    star.msg.classList.push("pointer-all");
+    star.msg.classList.push("right-10");
+    this.cell_list[0] = star;
+    star.click_callback=()=>{
+      console.log(9999999999999999999)
+      const url=new URL(window.location.href)
+      const path=url.href.split("/")
+      path.pop()
+      window.location.href=path.join("/")+"/bio.html"
+    }
+  }
+  click_handler() {
+    this.cell_list
+      .filter((x) => {
+        return x.on_mouse;
+      })
+      .forEach((x) => x.click_callback());
+  }
 }
 
 /**Renderer. Just a wrapper for canvas functions and mouse position detection */
@@ -391,6 +426,9 @@ class Canvas_manager {
       this.mouse_pos.y = e.clientY;
       this.mouse_grid.x = Math.floor(this.mouse_pos.x / grid_resolution);
       this.mouse_grid.y = Math.floor(this.mouse_pos.y / grid_resolution);
+    });
+    this.root.addEventListener("click", (e) => {
+      Cell_manager.mng.click_handler();
     });
   }
 

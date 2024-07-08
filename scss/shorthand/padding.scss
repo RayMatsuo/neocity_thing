@@ -1,24 +1,57 @@
 .p- {
+  &1 {
+    padding: 1px !important;
+
+    &r {
+      padding: 1rem !important;
+    }
+  }
   &5 {
     padding: 5px !important;
+
+    &r {
+      padding: 5rem !important;
+    }
   }
+
   &10 {
     padding: 10px !important;
+
+    &r {
+      padding: 10rem !important;
+    }
   }
+
   &s {
     padding: 10px;
+
+    &r {
+      padding: 10rem !important;
+    }
   }
 
   &m {
+    &r {
+      padding: 15rem !important;
+    }
+
     padding: 15px;
   }
 
   &l {
     padding: 25px;
+
+    &r {
+      padding: 25rem !important;
+    }
   }
 
   &xl {
     padding: 40px;
+
+    &r {
+      padding: 40rem !important;
+    }
   }
 }
 
@@ -26,82 +59,161 @@
   &5 {
     padding-top: 5px;
     padding-bottom: 5px;
+
+    &r {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
   }
+
   &10 {
     padding-top: 10px;
     padding-bottom: 10px;
+
+    &r {
+      padding-top: 10rem;
+      padding-bottom: 10rem;
+    }
   }
+
   &s {
     padding-top: 10px;
     padding-bottom: 10px;
+
+    &r {
+      padding-top: 10rem;
+      padding-bottom: 10rem;
+    }
   }
+
   &m {
     padding-top: 15px;
     padding-bottom: 15px;
+
+    &r {
+      padding-top: 15rem;
+      padding-bottom: 15rem;
+    }
   }
+
   &l {
     padding-top: 25px;
     padding-bottom: 25px;
+
+    &r {
+      padding-top: 25rem;
+      padding-bottom: 25rem;
+    }
   }
+
   &xl {
     padding-top: 40px;
     padding-bottom: 40px;
+
+    &r {
+      padding-top: 40rem;
+      padding-bottom: 40rem;
+    }
   }
 }
+
 .ph- {
   &5 {
     padding-left: 5px;
     padding-right: 5px;
+
+    &r {
+      padding-left: 5rem;
+      padding-right: 5rem;
+    }
   }
+
   &10 {
     padding-left: 10px;
     padding-right: 10px;
+
+    &r {
+      padding-left: 10rem;
+      padding-right: 10rem;
+    }
   }
+
   &s {
     padding-left: 10px;
     padding-right: 10px;
+
+    &r {
+      padding-left: 10rem;
+      padding-right: 10rem;
+    }
   }
+
   &m {
     padding-left: 15px;
     padding-right: 15px;
+
+    &r {
+      padding-left: 15rem;
+      padding-right: 15rem;
+    }
   }
+
   &l {
     padding-right: 25px;
     padding-left: 25px;
+    &r{
+
+    padding-right: 25rem;
+    padding-left: 25rem;
+    }
   }
+
   &xl {
     padding-right: 40px;
     padding-left: 40px;
+    &r{
+
+    padding-right: 40rem;
+    padding-left: 40rem;
+    }
   }
 }
+
 .pl- {
   &5 {
     padding-left: 5px;
   }
+
   &10 {
     padding-left: 10px;
   }
 }
+
 .pr- {
   &5 {
     padding-right: 5px;
   }
+
   &10 {
     padding-right: 10px;
   }
 }
+
 .pt- {
   &5 {
     padding-top: 5px;
   }
+
   &10 {
     padding-top: 10px;
   }
 }
+
 .pb- {
   &5 {
     padding-bottom: 5px;
   }
+
   &10 {
     padding-bottom: 10px;
   }

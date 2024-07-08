@@ -1,70 +1,142 @@
+.p-1 {
+  padding: 1px !important;
+}
+.p-1r {
+  padding: 1rem !important;
+}
 .p-5 {
   padding: 5px !important;
+}
+.p-5r {
+  padding: 5rem !important;
 }
 .p-10 {
   padding: 10px !important;
 }
+.p-10r {
+  padding: 10rem !important;
+}
 .p-s {
   padding: 10px;
+}
+.p-sr {
+  padding: 10rem !important;
 }
 .p-m {
   padding: 15px;
 }
+.p-mr {
+  padding: 15rem !important;
+}
 .p-l {
   padding: 25px;
 }
+.p-lr {
+  padding: 25rem !important;
+}
 .p-xl {
   padding: 40px;
+}
+.p-xlr {
+  padding: 40rem !important;
 }
 
 .pv-5 {
   padding-top: 5px;
   padding-bottom: 5px;
 }
+.pv-5r {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
 .pv-10 {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+.pv-10r {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
 }
 .pv-s {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+.pv-sr {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
 .pv-m {
   padding-top: 15px;
   padding-bottom: 15px;
+}
+.pv-mr {
+  padding-top: 15rem;
+  padding-bottom: 15rem;
 }
 .pv-l {
   padding-top: 25px;
   padding-bottom: 25px;
 }
+.pv-lr {
+  padding-top: 25rem;
+  padding-bottom: 25rem;
+}
 .pv-xl {
   padding-top: 40px;
   padding-bottom: 40px;
+}
+.pv-xlr {
+  padding-top: 40rem;
+  padding-bottom: 40rem;
 }
 
 .ph-5 {
   padding-left: 5px;
   padding-right: 5px;
 }
+.ph-5r {
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
 .ph-10 {
   padding-left: 10px;
   padding-right: 10px;
+}
+.ph-10r {
+  padding-left: 10rem;
+  padding-right: 10rem;
 }
 .ph-s {
   padding-left: 10px;
   padding-right: 10px;
 }
+.ph-sr {
+  padding-left: 10rem;
+  padding-right: 10rem;
+}
 .ph-m {
   padding-left: 15px;
   padding-right: 15px;
+}
+.ph-mr {
+  padding-left: 15rem;
+  padding-right: 15rem;
 }
 .ph-l {
   padding-right: 25px;
   padding-left: 25px;
 }
+.ph-lr {
+  padding-right: 25rem;
+  padding-left: 25rem;
+}
 .ph-xl {
   padding-right: 40px;
   padding-left: 40px;
+}
+.ph-xlr {
+  padding-right: 40rem;
+  padding-left: 40rem;
 }
 
 .pl-5 {

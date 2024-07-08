@@ -38,4 +38,11 @@
   border-radius: 100px;
 }
 
+.bc-white {
+  border-color: white;
+}
+.bc-black {
+  border-color: black;
+}
+
 /*# sourceMappingURL=border.css.map */
