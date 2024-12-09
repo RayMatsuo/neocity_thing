@@ -188,7 +188,7 @@ class Cell_manager {
     this.cell_count = cellcount;
     this.cell_list = [];
     this.init_cells();
-    this.init_bright_star();
+    // this.init_bright_star();
     this.canvas = new Canvas_manager();
     this.line_range = 200;
     this.is_constellation = false;

@@ -19,6 +19,7 @@ body {
   }
 
   &__popup {
+    display: none;
     position: absolute;
     width: fit-content;
     height: fit-content;
