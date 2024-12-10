@@ -16,7 +16,6 @@ body {
   height: 100%;
 }
 .canvas__popup {
-  display: none;
   position: absolute;
   width: fit-content;
   height: fit-content;
