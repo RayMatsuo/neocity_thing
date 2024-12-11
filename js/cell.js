@@ -26,7 +26,9 @@ class Cell {
 
     this.pause = false;
     this.on_mouse = false;
-    this.click_callback = () => {console.log(this.index)};
+    this.click_callback = () => {
+      console.log(this.index);
+    };
 
     const messages = [hope, cry, question, what_i_deserve].filter(
       (x) => x.length > 0,
@@ -94,6 +96,16 @@ class Cell {
         this.momentum.y += dir.y;
         this.momentum.z += dir.z;
       }
+    }
+    if (this.mng.canvas.clicked) {
+      const local = Vector3.sub(this.position, this.mng.canvas.mouse_pos);
+      const len = local.len();
+      const dir = local.normalize().mult(1 * (50 / len));
+
+      this.momentum.add_force(dir, 1);
+      this.momentum.x += dir.x;
+      this.momentum.y += dir.y;
+      this.momentum.z += dir.z;
     }
 
     if (!is_constellation) {
@@ -382,13 +394,13 @@ class Cell_manager {
     star.msg.classList.push("pointer-all");
     star.msg.classList.push("right-10");
     this.cell_list[0] = star;
-    star.click_callback=()=>{
-      console.log(9999999999999999999)
-      const url=new URL(window.location.href)
-      const path=url.href.split("/")
-      path.pop()
-      window.location.href=path.join("/")+"/bio.html"
-    }
+    star.click_callback = () => {
+      console.log(9999999999999999999);
+      const url = new URL(window.location.href);
+      const path = url.href.split("/");
+      path.pop();
+      window.location.href = path.join("/") + "/bio.html";
+    };
   }
   click_handler() {
     this.cell_list
@@ -410,6 +422,7 @@ class Canvas_manager {
     this.ctx.lineWidth = 30;
     this.mouse_pos = new Vector3();
     this.mouse_grid = new Vector3();
+    this.clicked = false;
     this.mouseover_cb = function () {};
     this.init_event();
   }
@@ -427,8 +440,15 @@ class Canvas_manager {
       this.mouse_grid.x = Math.floor(this.mouse_pos.x / grid_resolution);
       this.mouse_grid.y = Math.floor(this.mouse_pos.y / grid_resolution);
     });
+
     this.root.addEventListener("click", (e) => {
       Cell_manager.mng.click_handler();
+    });
+    this.root.addEventListener("mousedown", () => {
+      this.clicked = true;
+    });
+    this.root.addEventListener("mouseup", () => {
+      this.clicked = false;
     });
   }
 
