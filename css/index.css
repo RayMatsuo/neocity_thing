@@ -2,7 +2,19 @@ body {
   background-color: black;
 }
 
+#main_text, #control, body {
+  pointer-events: none;
+}
+#main_text p, #main_text li, #control p, #control li, body p, body li {
+  pointer-events: none;
+}
+
+input {
+  pointer-events: all;
+}
+
 .canvas {
+  pointer-events: all;
   z-index: -1;
   position: relative;
 }

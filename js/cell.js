@@ -96,16 +96,17 @@ class Cell {
         this.momentum.y += dir.y;
         this.momentum.z += dir.z;
       }
-    }
-    if (this.mng.canvas.clicked) {
-      const local = Vector3.sub(this.position, this.mng.canvas.mouse_pos);
-      const len = local.len();
-      const dir = local.normalize().mult(1 * (50 / len));
+    } else {
+      if (this.mng.canvas.clicked) {
+        const local = Vector3.sub(this.position, this.mng.canvas.mouse_pos);
+        const len = local.len();
+        const dir = local.normalize().mult(1 * (50 / len));
 
-      this.momentum.add_force(dir, 1);
-      this.momentum.x += dir.x;
-      this.momentum.y += dir.y;
-      this.momentum.z += dir.z;
+        this.momentum.add_force(dir, 1);
+        this.momentum.x += dir.x;
+        this.momentum.y += dir.y;
+        this.momentum.z += dir.z;
+      }
     }
 
     if (!is_constellation) {
@@ -200,7 +201,7 @@ class Cell_manager {
     this.cell_count = cellcount;
     this.cell_list = [];
     this.init_cells();
-    // this.init_bright_star();
+    this.init_bright_star();
     this.canvas = new Canvas_manager();
     this.line_range = 200;
     this.is_constellation = false;
