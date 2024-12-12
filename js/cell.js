@@ -339,6 +339,7 @@ export class Cell_manager {
         );
       }
     }
+    console.log(this.grid_fields)
   }
 
   /**Update star position on grid  */
@@ -529,9 +530,12 @@ export class Canvas_manager {
         if (field[y] != null) {
           let grid = field[y][x];
           if (grid != null) {
-            let r = Math.floor(255 * (grid.x + force / 2)).toString(16);
-            let g = Math.floor(255 * (grid.y + force / 2)).toString(16);
-            this.ctx.fillStyle = `#${r}${g}0020`;
+            let r = Math.floor(255 * (grid.x + force / 2)).toString(16).padStart(2,0);
+            let g = Math.floor(255 * (grid.y + force / 2)).toString(16).padStart(2,0);
+            this.ctx.fillStyle = `#${r}${g}f040`;
+
+            // let center=new Vector3((res*x)-(res/2),res*y-(res/2),0)
+            // this.draw_line(center,new Vector3(center.x+(grid.x*100),center.y+(grid.y*100),0),"#ffffff")
           }
         }
         this.ctx.fillRect(
