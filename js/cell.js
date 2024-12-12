@@ -113,6 +113,9 @@ class Cell {
       this.position.x = (this.position.x + this.momentum.x) % resolution.x;
       this.position.y = (this.position.y + this.momentum.y) % resolution.y;
       this.position.z = this.position.z + this.momentum.z;
+      if(this.position.x<0){this.position.x+=resolution.x}
+      if(this.position.y<0){this.position.y+=resolution.y}
+        
     }
 
     this.momentum.x *= this.decay;
