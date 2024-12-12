@@ -1,3 +1,6 @@
+import { Cell_manager,grid_resolution,resolution } from "./cell"; 
+import { Vector3 } from "./Vector";
+
 window.addEventListener("load", () => {
   const grid_visualization = document.getElementById("grid_visualization");
   const grid_size = document.getElementById("grid_size");
@@ -12,10 +15,12 @@ window.addEventListener("load", () => {
   if (window.visualViewport.width < 750) {
     cell_count = 50;
 
-    grid_resolution = 150;
   }
   var mng = new Cell_manager(cell_count);
 
+  if (window.visualViewport.width < 750) {
+   mng.update_grid_resolution(150) 
+  }
   // Grid button
   mng.show_grid = grid_visualization.checked;
   grid_visualization.onchange = () => {
@@ -31,7 +36,7 @@ window.addEventListener("load", () => {
   // Grid Size
   grid_size.value = grid_resolution;
   grid_size.onchange = () => {
-    grid_resolution = Math.max(grid_size.value, 100);
+    mng.update_grid_size(Math.max(grid_size.value, 100))
   };
 
   // Dynamic resolution update
@@ -52,7 +57,7 @@ window.addEventListener("load", () => {
   // Disable Screen Clear
   no_screen_clear.checked = false;
   no_screen_clear.onchange = () => {
-    disable_screen_clear = no_screen_clear.checked;
+  mng.update_screen_clear(no_screen_clear.checked)
   };
 
   constellation.checked = false;

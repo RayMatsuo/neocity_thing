@@ -1,3 +1,6 @@
+
+import { Cell_manager,grid_resolution,resolution } from "./cell"; 
+import { Vector3 } from "./Vector";
 window.addEventListener("load", () => {
   var cell_count = 100;
   if (window.visualViewport.width < 750) {

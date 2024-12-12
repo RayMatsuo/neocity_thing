@@ -75,3 +75,4 @@ var hope = [
   "its nice to talk to people i'm comfortable with",
   "I want to feel hopeful with someone",
 ];
+export {hope,question,cry,what_i_deserve}

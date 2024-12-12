@@ -1,22 +1,24 @@
+import { hope, question, cry, what_i_deserve } from "./msg";
+import { Vector3 } from "./Vector";
 /**
  *TODO: Prevent messages from changing order
  *
  * */
-var resolution = new Vector3(
+export var resolution = new Vector3(
   window.visualViewport.width,
   window.visualViewport.height,
 );
-
-var grid_resolution = 150;
-var disable_screen_clear = false;
-class Cell {
+export var grid_resolution = 150;
+export var disable_screen_clear = false;
+export class Cell {
   constructor(parent, index) {
     this.mng = parent;
 
     this.index = index;
 
     this.position = new Vector3();
-    this.grid = new Vector3();
+    this.grid = { x: 0, y: 0 };
+    this.grid_fields = [];
     this.momentum = new Vector3();
     this.direction = new Vector3();
     this.speed = 1;
@@ -80,6 +82,14 @@ class Cell {
     this.momentum.y += this.direction.y * this.speed;
     this.momentum.z += this.direction.z * this.speed;
 
+    if (this.mng.grid_fields[this.grid.y] != null) {
+      let gridForce = this.mng.grid_fields[this.grid.y][this.grid.x];
+      if (gridForce != null) {
+        this.momentum.x += gridForce.x;
+        this.momentum.y += gridForce.y;
+      }
+    }
+
     // make it attracted to one under cursor
     if (this.mng.selected != null) {
       const selected = this.mng.selected;
@@ -113,9 +123,12 @@ class Cell {
       this.position.x = (this.position.x + this.momentum.x) % resolution.x;
       this.position.y = (this.position.y + this.momentum.y) % resolution.y;
       this.position.z = this.position.z + this.momentum.z;
-      if(this.position.x<0){this.position.x+=resolution.x}
-      if(this.position.y<0){this.position.y+=resolution.y}
-        
+      if (this.position.x < 0) {
+        this.position.x += resolution.x;
+      }
+      if (this.position.y < 0) {
+        this.position.y += resolution.y;
+      }
     }
 
     this.momentum.x *= this.decay;
@@ -126,7 +139,7 @@ class Cell {
   }
 }
 
-class Color {
+export class Color {
   constructor(r = 255, g = 255, b = 255, a = 255) {
     this.r = r;
     this.g = g;
@@ -158,7 +171,7 @@ class Color {
 }
 
 /** Visual attributes for individual stars */
-class Cell_attribute {
+export class Cell_attribute {
   constructor(attr = {}) {
     this.attr = attr;
     this.color = new Color();
@@ -180,7 +193,7 @@ class Cell_attribute {
   }
 }
 /**Message and formatting attributes  */
-class Cell_message {
+export class Cell_message {
   constructor(text = "") {
     this.text = text;
     this.color = "black";
@@ -199,7 +212,7 @@ class Cell_message {
 }
 
 /**Simulation manager   */
-class Cell_manager {
+export class Cell_manager {
   constructor(cellcount = 10) {
     this.cell_count = cellcount;
     this.cell_list = [];
@@ -214,7 +227,10 @@ class Cell_manager {
     this.init_loop();
     this.popup = document.getElementById("popup");
     this.selected = null;
+
     Cell_manager.mng = this;
+
+    this.update_grid_field();
   }
 
   init_loop() {
@@ -304,6 +320,24 @@ class Cell_manager {
         // 2+(((Math.max(-100,Math.min(cell.position.z,100)))+100)/200)*3,
       );
       cell.attribute.reset();
+    }
+  }
+
+  update_grid_field() {
+    const sx = Math.ceil(resolution.x / grid_resolution);
+    const sy = Math.ceil(resolution.y / grid_resolution);
+    this.field_force = 1;
+
+    this.grid_fields = Array(sy);
+    for (let i = 0; i < sy; i++) {
+      this.grid_fields[i] = [];
+      for (let a = 0; a < sx; a++) {
+        this.grid_fields[i][a] = new Vector3(
+          Math.random() * this.field_force - this.field_force / 2,
+          Math.random() * this.field_force - this.field_force / 2,
+          0,
+        );
+      }
     }
   }
 
@@ -399,7 +433,6 @@ class Cell_manager {
     star.msg.classList.push("right-10");
     this.cell_list[0] = star;
     star.click_callback = () => {
-      console.log(9999999999999999999);
       const url = new URL(window.location.href);
       const path = url.href.split("/");
       path.pop();
@@ -413,10 +446,20 @@ class Cell_manager {
       })
       .forEach((x) => x.click_callback());
   }
+  update_grid_size(x) {
+    grid_resolution = x;
+    this.update_grid_field();
+  }
+  update_screen_clear(x) {
+    disable_screen_clear = x;
+  }
+  update_grid_resolution(x) {
+    grid_resolution = x;
+  }
 }
 
 /**Renderer. Just a wrapper for canvas functions and mouse position detection */
-class Canvas_manager {
+export class Canvas_manager {
   constructor() {
     /**@type{HTMLCanvasElement}  the canvas element*/
     this.root = document.getElementsByClassName("js-canvas")[0];
@@ -476,11 +519,21 @@ class Canvas_manager {
 
   /**A function to visualize the grid. She's also dating all of them.  */
   draw_grid() {
+    let field = Cell_manager.mng.grid_fields;
+    let force = Cell_manager.mng.field_force;
     this.ctx.fillStyle = "#ff000020";
     const res = grid_resolution;
     const padding = 10;
     for (let x = 0; x < resolution.x / res; x++) {
       for (let y = 0; y < resolution.y / res; y++) {
+        if (field[y] != null) {
+          let grid = field[y][x];
+          if (grid != null) {
+            let r = Math.floor(255 * (grid.x + force / 2)).toString(16);
+            let g = Math.floor(255 * (grid.y + force / 2)).toString(16);
+            this.ctx.fillStyle = `#${r}${g}0020`;
+          }
+        }
         this.ctx.fillRect(
           res * x + padding,
           res * y + padding,
