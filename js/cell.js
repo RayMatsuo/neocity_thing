@@ -1,5 +1,5 @@
-import { hope, question, cry, what_i_deserve } from "./msg";
-import { Vector3 } from "./Vector";
+import { hope, question, cry, what_i_deserve } from "./msg.js";
+import { Vector3 } from "./Vector.js";
 /**
  *TODO: Prevent messages from changing order
  *

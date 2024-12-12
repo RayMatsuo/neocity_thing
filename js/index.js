@@ -1,5 +1,5 @@
-import { Cell_manager,grid_resolution,resolution } from "./cell"; 
-import { Vector3 } from "./Vector";
+import { Cell_manager,grid_resolution,resolution } from "./cell.js"; 
+import { Vector3 } from "./Vector.js";
 
 window.addEventListener("load", () => {
   const grid_visualization = document.getElementById("grid_visualization");
